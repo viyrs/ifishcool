@@ -1,8 +1,6 @@
 name: 检查项目是否正常构建
 
 on:
-  push:
-    branches: [main]
   pull_request:
 
 jobs:
