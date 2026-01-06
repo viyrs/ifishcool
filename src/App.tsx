@@ -19,11 +19,11 @@ function App() {
             联系
           </button>
         </nav>
-        <div className="top-nav-right">
+        {/* <div className="top-nav-right">
           <button type="button" className="top-nav-cta">
             下载简历
           </button>
-        </div>
+        </div> */}
       </header>
 
       <Hero />
