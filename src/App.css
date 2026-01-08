@@ -1,8 +1,15 @@
 /* App layout */
 
-@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+@font-face {
+  font-family: "PacificoLocal";
+  src: url("./assets/Pacifico-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 .pacifico-regular {
-  font-family: "Pacifico", cursive;
+  font-family: "PacificoLocal", cursive;
   font-weight: 400;
   font-style: normal;
 }
@@ -17,7 +24,10 @@ a[href],
 .cursor-pointer {
   cursor: url("/cursor-cartoon-button.png") 32 32, pointer;
 }
-
+::selection {
+  background: #b6ff2b;
+  color: #050505; /* 让文字在酸性绿色背景上更清晰 */
+}
 /* Global scrollbar styling - thin neon rail */
 body::-webkit-scrollbar {
   width: 6px;
@@ -50,6 +60,11 @@ body::-webkit-scrollbar-thumb {
     linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
   background-size: 40px 40px;
   color: #f5f5f5;
+}
+
+.app-root--intro-open {
+  height: 100vh;
+  overflow: hidden;
 }
 
 .intro-gate {
@@ -671,17 +686,6 @@ body::-webkit-scrollbar-thumb {
   right: 18%;
 }
 
-.hero-decor-triangle {
-  width: 0;
-  height: 0;
-  border-left: 60px solid transparent;
-  border-right: 60px solid transparent;
-  border-bottom: 100px solid rgba(0, 0, 0, 0.9);
-  bottom: 8%;
-  left: 50%;
-  transform-origin: 50% 90%;
-}
-
 .hero-orbit-svg {
   position: absolute;
   top: 10%;
@@ -856,6 +860,39 @@ body::-webkit-scrollbar-thumb {
   gap: 1.5rem;
 }
 
+.projects-orbit-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.projects-orbit-svg {
+  position: absolute;
+  right: -40px;
+  bottom: -10px;
+  width: 760px;
+  height: auto;
+  opacity: 0.2;
+}
+
+.projects-orbit-planet {
+  fill: #b6ff2b;
+  opacity: 0;
+  transform-origin: center;
+  filter: drop-shadow(0 0 16px rgba(182, 255, 43, 0.9));
+}
+
+.projects-orbit-planet--two {
+  fill: #22d3ee;
+  filter: drop-shadow(0 0 16px rgba(34, 211, 238, 0.9));
+}
+
+.projects-orbit-planet--three {
+  fill: #a855f7;
+  filter: drop-shadow(0 0 18px rgba(168, 85, 247, 0.95));
+}
+
 .project-card {
   width: 280px;
   min-height: 180px;
@@ -983,4 +1020,240 @@ body::-webkit-scrollbar-thumb {
 .project-card:hover {
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85);
   border-color: rgba(182, 255, 43, 0.5);
+}
+
+/* Cinematic large-copy scene */
+
+.text-scene {
+  position: relative;
+  padding: 6rem 3rem 7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.text-scene::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+
+  pointer-events: none;
+}
+
+.text-scene-inner {
+  position: relative;
+  max-width: 960px;
+  z-index: 1;
+}
+
+.text-scene-copy {
+  position: relative;
+  z-index: 2;
+}
+
+.text-scene-line {
+  margin: 0 0 1.2rem;
+  font-size: clamp(1.4rem, 2.6vw + 0.4rem, 2.1rem);
+  line-height: 1.7;
+  color: rgba(245, 245, 245, 0.88);
+}
+
+.text-scene-line--accent {
+  font-weight: 700;
+  color: #f9fafb;
+}
+
+.text-scene-decor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.text-scene-decor-svg {
+  position: absolute;
+  right: -40px;
+  top: -10px;
+  width: 420px;
+  height: auto;
+  opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+  .text-scene {
+    padding: 4.5rem 1.5rem 5rem;
+  }
+
+  .text-scene-line {
+    font-size: 1.2rem;
+  }
+}
+
+/* Open source showcase section */
+
+.oss-section {
+  padding: 4rem 3rem 5rem;
+}
+
+.oss-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.oss-label {
+  font-size: 0.74rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(245, 245, 245, 0.6);
+  margin: 0 0 2rem;
+}
+
+.oss-title {
+  font-size: 1.5rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.oss-track {
+  display: inline-flex;
+  gap: 2rem;
+
+  padding-bottom: 0.6rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+.oss-track::-webkit-scrollbar {
+  height: 4px;
+}
+
+.oss-track::-webkit-scrollbar-thumb {
+  background: rgba(182, 255, 43, 0.7);
+  border-radius: 999px;
+}
+
+.oss-vault-card {
+  position: relative;
+  width: 320px;
+  padding: 1.4rem 1.6rem 1.7rem;
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #050505;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.oss-vault-card::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient(
+    circle at 20% 0%,
+    rgba(182, 255, 43, 0.2),
+    transparent 60%
+  );
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.oss-vault-pill-row {
+  display: inline-flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.oss-vault-pill {
+  padding: 0.16rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.oss-vault-pill-muted {
+  background: rgba(15, 23, 42, 0.95);
+}
+
+.oss-vault-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1.4rem;
+}
+
+.oss-vault-title {
+  margin: 0;
+  font-size: 1.6rem;
+  letter-spacing: 0.04em;
+}
+
+.oss-vault-subtitle {
+  margin: 0;
+  font-size: 0.9rem;
+  color: rgba(243, 244, 246, 0.86);
+}
+
+.oss-vault-thumb {
+  margin: 0 0 1.1rem;
+  border-radius: 20px;
+  height: 150px;
+  background: linear-gradient(145deg, #18181b, #020617);
+  border: 1px solid rgba(63, 63, 70, 0.9);
+  box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.9);
+}
+
+.oss-vault-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.oss-vault-tech {
+  font-size: 0.76rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(148, 163, 184, 0.9);
+}
+
+.oss-vault-stars {
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(182, 255, 43, 0.9);
+}
+
+.oss-vault-cta {
+  border: none;
+  border-radius: 999px;
+  padding: 0.5rem 1.4rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: #f9fafb;
+  color: #020617;
+  cursor: pointer;
+}
+
+.oss-vault-card:hover {
+  border-color: rgba(182, 255, 43, 0.6);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9);
+}
+
+@media (max-width: 1024px) {
+  .oss-track {
+    gap: 1.4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .oss-section {
+    padding: 3.5rem 1.5rem 4rem;
+  }
+
+  .oss-track {
+    display: flex;
+  }
 }

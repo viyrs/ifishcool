@@ -85,6 +85,9 @@ const ProjectsStrip = ({ introReady = true, shellRef }: ProjectsStripProps) => {
       const track = sectionRoot.querySelector<HTMLElement>(
         ".projects-strip-track"
       );
+      const planets = sectionRoot.querySelectorAll<SVGCircleElement>(
+        ".projects-orbit-planet"
+      );
 
       if (cards.length) {
         gsap.from(cards, {
@@ -138,6 +141,18 @@ const ProjectsStrip = ({ introReady = true, shellRef }: ProjectsStripProps) => {
               end: "+=1400", // 再拉长一点滚动距离，让节奏更从容
               scrub: 3, // 提升阻尼感：动画明显滞后，再缓缓追上滚动
               pin: true,
+              onUpdate: (self) => {
+                if (!planets.length) return;
+                const p = self.progress;
+                // 只在最后 40% 的区间里逐渐点亮行星
+                const visible = gsap.utils.clamp(0, 1, (p - 0.6) / 0.4);
+                gsap.to(planets, {
+                  scale: 0.6 + visible * 0.5,
+                  opacity: visible,
+                  duration: 0.25,
+                  ease: "sine.out",
+                });
+              },
             },
           }
         );
@@ -155,7 +170,7 @@ const ProjectsStrip = ({ introReady = true, shellRef }: ProjectsStripProps) => {
 
       ctx.revert();
     };
-  }, [introReady]);
+  }, [introReady, shellRef]);
 
   return (
     <section className="projects-strip" ref={sectionRef}>
@@ -175,6 +190,33 @@ const ProjectsStrip = ({ introReady = true, shellRef }: ProjectsStripProps) => {
               </article>
             );
           })}
+        </div>
+
+        <div className="projects-orbit-layer" aria-hidden="true">
+          <svg
+            className="projects-orbit-svg"
+            viewBox="0 0 400 180"
+            preserveAspectRatio="xMidYMid meet"
+          >
+            <circle
+              className="projects-orbit-planet projects-orbit-planet--one"
+              cx="80"
+              cy="90"
+              r="10"
+            />
+            <circle
+              className="projects-orbit-planet projects-orbit-planet--two"
+              cx="200"
+              cy="50"
+              r="7"
+            />
+            <circle
+              className="projects-orbit-planet projects-orbit-planet--three"
+              cx="320"
+              cy="120"
+              r="9"
+            />
+          </svg>
         </div>
       </div>
     </section>

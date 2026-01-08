@@ -2,6 +2,8 @@ import { useRef } from "react";
 import "./App.css";
 import Hero from "./sections/Hero";
 import ProjectsStrip from "./sections/ProjectsStrip";
+import TextScene from "./sections/TextScene";
+import OpenSourceShowcase from "./sections/OpenSourceShowcase";
 import IntroGate from "./components/layout/IntroGate";
 import TopNav from "./components/layout/TopNav";
 import { useIntroGate } from "./hooks/useIntroGate";
@@ -19,8 +21,12 @@ function App() {
     dropdownRef
   );
 
+  const appRootClassName = introVisible
+    ? "app-root app-root--intro-open"
+    : "app-root";
+
   return (
-    <div className="app-root">
+    <div className={appRootClassName}>
       <IntroGate
         visible={introVisible}
         animatingOut={introAnimatingOut}
@@ -39,7 +45,10 @@ function App() {
       <div className="hero-projects-shell" ref={shellRef}>
         <Hero introReady={introReady} />
         <ProjectsStrip introReady={introReady} shellRef={shellRef} />
+        <TextScene />
       </div>
+
+      <OpenSourceShowcase />
     </div>
   );
 }

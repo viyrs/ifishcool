@@ -203,7 +203,7 @@ const Hero = ({ introReady = true }: HeroProps) => {
       <div className="hero-decor-layer">
         <div className="hero-decor hero-decor-circle" ref={circleRef} />
         <div className="hero-decor hero-decor-square" ref={squareRef} />
-        <div className="hero-decor hero-decor-triangle" ref={triangleRef} />
+
         <svg
           className="hero-orbit-svg"
           viewBox="0 0 400 160"
