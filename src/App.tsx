@@ -10,6 +10,7 @@ import { useTopNavMenu } from "./hooks/useTopNavMenu";
 function App() {
   const headerRef = useRef<HTMLElement | null>(null);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const shellRef = useRef<HTMLDivElement | null>(null);
   const { introVisible, introAnimatingOut, handleIntroEnter, introReady } =
     useIntroGate();
 
@@ -34,9 +35,11 @@ function App() {
         dropdownRef={dropdownRef}
       />
 
-      {/* Only start Hero animations after intro gate is fully gone */}
-      <Hero introReady={introReady} />
-      <ProjectsStrip />
+      {/* Only start Hero and Projects animations after intro gate is fully gone */}
+      <div className="hero-projects-shell" ref={shellRef}>
+        <Hero introReady={introReady} />
+        <ProjectsStrip introReady={introReady} shellRef={shellRef} />
+      </div>
     </div>
   );
 }
