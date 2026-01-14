@@ -1,15 +1,16 @@
-import { useRef } from "react";
+import { Suspense, lazy, useRef } from "react";
 import "./App.css";
 import Hero from "./sections/Hero";
 import ProjectsStrip from "./sections/ProjectsStrip";
-import TextScene from "./sections/TextScene";
-import OpenSourceShowcase from "./sections/OpenSourceShowcase";
-import BigFooter from "./sections/BigFooter";
 import IntroGate from "./components/layout/IntroGate";
 import TopNav from "./components/layout/TopNav";
 import { useIntroGate } from "./hooks/useIntroGate";
 import { useTopNavMenu } from "./hooks/useTopNavMenu";
 import { useSmoothScroll } from "./hooks/useSmoothScroll";
+
+const TextScene = lazy(() => import("./sections/TextScene"));
+const OpenSourceShowcase = lazy(() => import("./sections/OpenSourceShowcase"));
+const BigFooter = lazy(() => import("./sections/BigFooter"));
 
 function App() {
   const headerRef = useRef<HTMLElement | null>(null);
@@ -40,6 +41,7 @@ function App() {
               animatingOut={introAnimatingOut}
               onEnter={handleIntroEnter}
             />
+
             <TopNav
               ref={headerRef}
               menuOpen={menuOpen}
@@ -52,13 +54,19 @@ function App() {
               <ProjectsStrip introReady={introReady} shellRef={shellRef} />
             </div>
             <div id="about">
-              <TextScene />
+              <Suspense fallback={null}>
+                <TextScene />
+              </Suspense>
             </div>
             <div id="notes">
-              <OpenSourceShowcase />
+              <Suspense fallback={null}>
+                <OpenSourceShowcase />
+              </Suspense>
             </div>
             <div id="contact">
-              <BigFooter />
+              <Suspense fallback={null}>
+                <BigFooter />
+              </Suspense>
             </div>
           </div>
         </div>

@@ -377,8 +377,10 @@ const ProjectsStrip = ({ introReady = true, shellRef }: ProjectsStripProps) => {
   useLayoutEffect(() => {
     if (!introReady || !sectionRef.current) return;
 
+    const sectionEl = sectionRef.current;
+
     const ctx = gsap.context(() => {
-      const sectionRoot = sectionRef.current!;
+      const sectionRoot = sectionEl!;
       const triggerRoot = shellRef?.current ?? sectionRoot;
       const cards = sectionRoot.querySelectorAll<HTMLElement>(".project-card");
       const track = sectionRoot.querySelector<HTMLElement>(
@@ -465,9 +467,8 @@ const ProjectsStrip = ({ introReady = true, shellRef }: ProjectsStripProps) => {
     }, sectionRef);
 
     return () => {
-      if (sectionRef.current) {
-        const cards =
-          sectionRef.current.querySelectorAll<HTMLElement>(".project-card");
+      if (sectionEl) {
+        const cards = sectionEl.querySelectorAll<HTMLElement>(".project-card");
         cards.forEach((card) => {
           gsap.killTweensOf(card);
         });
