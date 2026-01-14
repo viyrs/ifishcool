@@ -79,6 +79,8 @@ const OpenSourceShowcase = () => {
       const section = sectionRef.current!;
       const cards = section.querySelectorAll<HTMLElement>(".oss-vault-card");
       const shuffleBtn = section.querySelector<HTMLElement>(".oss-shuffle-btn");
+      const planets =
+        section.querySelectorAll<SVGCircleElement>(".oss-orbit-planet");
 
       const mm = gsap.matchMedia();
 
@@ -161,6 +163,22 @@ const OpenSourceShowcase = () => {
               from: "center",
             },
           });
+
+          if (planets.length) {
+            gsap.to(planets, {
+              y: (i) => (i % 2 === 0 ? -6 : 6),
+              x: (i) => (i - (planets.length - 1) / 2) * 4,
+              scale: 1.1,
+              duration: 4,
+              ease: "sine.inOut",
+              yoyo: true,
+              repeat: -1,
+              stagger: {
+                each: 0.6,
+                from: "edges",
+              },
+            });
+          }
         }
       });
     }, sectionRef);

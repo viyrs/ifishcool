@@ -9,6 +9,12 @@ const BigFooter = () => {
 
     const ctx = gsap.context(() => {
       const section = sectionRef.current!;
+      const planets = section.querySelectorAll<SVGCircleElement>(
+        ".big-footer-orbit-planet"
+      );
+      const orbits = section.querySelectorAll<SVGPathElement>(
+        ".big-footer-orbit-path"
+      );
 
       gsap.from(section, {
         opacity: 0,
@@ -16,6 +22,39 @@ const BigFooter = () => {
         duration: 1,
         ease: "power3.out",
       });
+
+      if (planets.length) {
+        gsap.to(planets, {
+          y: (i) => (i % 2 === 0 ? -6 : 6),
+          x: (i) => (i - (planets.length - 1) / 2) * 3,
+          duration: 4.5,
+          ease: "sine.inOut",
+          yoyo: true,
+          repeat: -1,
+          stagger: {
+            each: 0.6,
+            from: "edges",
+          },
+        });
+      }
+
+      if (orbits.length) {
+        gsap.fromTo(
+          orbits,
+          { strokeDashoffset: 120 },
+          {
+            strokeDashoffset: 0,
+            duration: 8,
+            ease: "sine.inOut",
+            repeat: -1,
+            yoyo: true,
+            stagger: {
+              each: 1.2,
+              from: "center",
+            },
+          }
+        );
+      }
     }, sectionRef);
 
     return () => {
@@ -26,7 +65,41 @@ const BigFooter = () => {
   return (
     <section className="big-footer" ref={sectionRef}>
       <div className="big-footer-inner">
-        <div className="big-footer-wordmark">VIYRS</div>
+        <div className="big-footer-wordmark pacifico-regular">VIYRS</div>
+        <div className="big-footer-orbit-layer" aria-hidden="true">
+          <svg
+            className="big-footer-orbit-svg"
+            viewBox="0 0 400 140"
+            preserveAspectRatio="xMidYMid meet"
+          >
+            <path
+              className="big-footer-orbit-path big-footer-orbit-path--outer"
+              d="M30 80 Q 200 10 370 80"
+            />
+            <path
+              className="big-footer-orbit-path big-footer-orbit-path--inner"
+              d="M40 95 Q 200 35 360 95"
+            />
+            <circle
+              className="big-footer-orbit-planet big-footer-orbit-planet--one"
+              cx="52"
+              cy="70"
+              r="30"
+            />
+            <circle
+              className="big-footer-orbit-planet big-footer-orbit-planet--two"
+              cx="210"
+              cy="100"
+              r="25"
+            />
+            <circle
+              className="big-footer-orbit-planet big-footer-orbit-planet--three"
+              cx="340"
+              cy="60"
+              r="46"
+            />
+          </svg>
+        </div>
         <div className="big-footer-meta">
           <div className="big-footer-tags">
             <span className="big-footer-tag">PORTFOLIO</span>

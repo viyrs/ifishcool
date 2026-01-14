@@ -1277,6 +1277,41 @@ body::-webkit-scrollbar-thumb {
 }
 
 .oss-inner {
+  position: relative;
+}
+
+.oss-orbit-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.oss-orbit-svg {
+  position: absolute;
+  right: 4.5rem;
+  top: 0.5rem;
+  width: 260px;
+  height: auto;
+  opacity: 0.65;
+}
+
+.oss-orbit-planet {
+  fill: #22c55e;
+  filter: drop-shadow(0 0 14px rgba(34, 197, 94, 0.95));
+}
+
+.oss-orbit-planet--two {
+  fill: #38bdf8;
+  filter: drop-shadow(0 0 14px rgba(56, 189, 248, 0.95));
+}
+
+.oss-orbit-planet--three {
+  fill: #e11d48;
+  filter: drop-shadow(0 0 16px rgba(225, 29, 72, 0.95));
+}
+
+.oss-inner {
   max-width: 1120px;
   margin: 0 auto;
 }
@@ -1423,7 +1458,6 @@ body::-webkit-scrollbar-thumb {
 
 .oss-shuffle-btn:disabled {
   opacity: 0.5;
-  cursor: default;
 }
 
 @media (max-width: 1024px) {
@@ -1471,6 +1505,53 @@ body::-webkit-scrollbar-thumb {
   position: relative;
   max-width: 1120px;
   margin: 0 auto;
+}
+
+.big-footer-orbit-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.big-footer-orbit-svg {
+  position: absolute;
+  right: 2.5rem;
+  top: 0.5rem;
+  width: 260px;
+  height: auto;
+  opacity: 0.55;
+}
+
+.big-footer-orbit-planet {
+  fill: #22c55e;
+  filter: drop-shadow(0 0 14px rgba(34, 197, 94, 0.95));
+}
+
+.big-footer-orbit-planet--two {
+  fill: #38bdf8;
+  filter: drop-shadow(0 0 14px rgba(56, 189, 248, 0.95));
+}
+
+.big-footer-orbit-planet--three {
+  fill: #e11d48;
+  filter: drop-shadow(0 0 16px rgba(225, 29, 72, 0.95));
+}
+
+.big-footer-orbit-path {
+  fill: none;
+  stroke: rgba(148, 163, 184, 0.4);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-dasharray: 6 8;
+}
+
+.big-footer-orbit-path--outer {
+  stroke: rgba(148, 163, 184, 0.55);
+}
+
+.big-footer-orbit-path--inner {
+  stroke: rgba(51, 65, 85, 0.9);
 }
 
 .big-footer-wordmark {
@@ -1545,12 +1626,32 @@ body::-webkit-scrollbar-thumb {
 
 @media (max-width: 768px) {
   .big-footer {
-    padding: 3rem 1.5rem 2.5rem;
+    padding: 2.5rem 1.5rem 2.25rem;
   }
 
   .big-footer-meta {
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.6rem;
+    gap: 0.75rem;
+  }
+
+  .big-footer-wordmark {
+    font-size: clamp(3.2rem, 14vw, 4.5rem);
+  }
+
+  .big-footer-orbit-svg {
+    right: 1.2rem;
+    top: 0.4rem;
+    width: 200px;
+    opacity: 0.45;
+  }
+
+  .big-footer-meta-right {
+    align-items: flex-start;
+  }
+
+  .big-footer-socials {
+    flex-wrap: wrap;
+    row-gap: 0.35rem;
   }
 }
