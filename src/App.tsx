@@ -47,10 +47,9 @@ function App() {
         <Hero introReady={introReady} />
         <ProjectsStrip introReady={introReady} shellRef={shellRef} />
         <TextScene />
+        <OpenSourceShowcase />
+        <BigFooter />
       </div>
-
-      <OpenSourceShowcase />
-      <BigFooter />
     </div>
   );
 }

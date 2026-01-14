@@ -19,6 +19,30 @@ const OSS_REPOS: OpenSourceRepoCard[] = [
     stars: "1.2k",
   },
   {
+    id: "prompt-orbit",
+    name: "prompt-orbit",
+    description:
+      "Composable prompt pipeline toolkit for multi-agent LLM systems.",
+    tech: "TypeScript · Node · OpenAI",
+    stars: "1.2k",
+  },
+  {
+    id: "prompt-orbit",
+    name: "prompt-orbit",
+    description:
+      "Composable prompt pipeline toolkit for multi-agent LLM systems.",
+    tech: "TypeScript · Node · OpenAI",
+    stars: "1.2k",
+  },
+  {
+    id: "prompt-orbit",
+    name: "prompt-orbit",
+    description:
+      "Composable prompt pipeline toolkit for multi-agent LLM systems.",
+    tech: "TypeScript · Node · OpenAI",
+    stars: "1.2k",
+  },
+  {
     id: "neon-gsap-lab",
     name: "neon-gsap-lab",
     description:
@@ -50,84 +74,73 @@ const OpenSourceShowcase = () => {
       const cards = section.querySelectorAll<HTMLElement>(".oss-vault-card");
       const shuffleBtn = section.querySelector<HTMLElement>(".oss-shuffle-btn");
 
-      // Fade the whole section in when it enters the viewport
-      gsap.from(section, {
-        opacity: 0,
-        y: 80,
-        duration: 1.1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: section,
-          start: "top 85%",
-          toggleActions: "play none none none",
-        },
-      });
+      const mm = gsap.matchMedia();
 
-      if (cards.length) {
-        // Entrance: cards expand out from the center when scrolled into view
-        gsap.from(cards, {
-          scale: 0.7,
+      // Only run OSS animations on desktop / larger screens
+      mm.add("(min-width: 769px)", () => {
+        // Fade the whole section in when it enters the viewport
+        gsap.from(section, {
           opacity: 0,
           y: 80,
-          duration: 0.9,
+          duration: 1.1,
           ease: "power3.out",
-          stagger: {
-            each: 0.12,
-            from: "center",
-          },
           scrollTrigger: {
             trigger: section,
-            start: "top 80%",
+            start: "top 85%",
             toggleActions: "play none none none",
           },
         });
 
-        if (shuffleBtn) {
-          // Shuffle button enters slightly after cards, from center
-          gsap.from(shuffleBtn, {
+        if (cards.length) {
+          // Entrance: cards expand out from the center when scrolled into view
+          gsap.from(cards, {
             scale: 0.7,
             opacity: 0,
-            y: 40,
-            duration: 0.7,
-            ease: "back.out(1.8)",
+            y: 80,
+            duration: 0.9,
+            ease: "power3.out",
+            stagger: {
+              each: 0.12,
+              from: "center",
+            },
             scrollTrigger: {
               trigger: section,
               start: "top 80%",
               toggleActions: "play none none none",
             },
           });
-        }
 
-        // Set initial rotation so center card正面，两侧略微倾斜
-        cards.forEach((card, index) => {
-          const mid = (cards.length - 1) / 2;
-          const offset = index - mid;
-          const baseRot = gsap.utils.clamp(-16, 16, offset * 8);
-          gsap.set(card, {
-            rotation: baseRot,
-            transformOrigin: "50% 100%",
+          if (shuffleBtn) {
+            // Shuffle button enters slightly after cards, from center
+            gsap.from(shuffleBtn, {
+              scale: 0.7,
+              opacity: 0,
+              y: 40,
+              duration: 0.7,
+              ease: "back.out(1.8)",
+              scrollTrigger: {
+                trigger: section,
+                start: "top 80%",
+                toggleActions: "play none none none",
+              },
+            });
+          }
+
+          // Create a gentle horizontal / vertical sway (no rotation)
+          gsap.to(cards, {
+            x: (i) => (i - (cards.length - 1) / 2) * 12,
+            y: (i) => Math.abs(i - (cards.length - 1) / 2) * 3,
+            duration: 5.5,
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1,
+            stagger: {
+              each: 0.4,
+              from: "center",
+            },
           });
-        });
-
-        // Create an orbital-style horizontal sway with rotation
-        gsap.to(cards, {
-          x: (i) => (i - (cards.length - 1) / 2) * 12,
-          y: (i) => Math.abs(i - (cards.length - 1) / 2) * 3,
-          rotation: (i) => {
-            const mid = (cards.length - 1) / 2;
-            const offset = i - mid;
-            return gsap.utils.clamp(-22, 22, offset * 10);
-          },
-          duration: 5.5,
-          ease: "sine.inOut",
-          yoyo: true,
-          repeat: -1,
-          stagger: {
-            each: 0.4,
-            from: "center",
-          },
-        });
-      }
+        }
+      });
     }, sectionRef);
 
     return () => {
@@ -156,8 +169,6 @@ const OpenSourceShowcase = () => {
                 <h3 className="oss-vault-title">{repo.name}</h3>
                 <p className="oss-vault-subtitle">{repo.description}</p>
               </div>
-
-              <div className="oss-vault-thumb" />
 
               <div className="oss-vault-meta">
                 <span className="oss-vault-tech">{repo.tech}</span>
@@ -191,6 +202,22 @@ const OpenSourceShowcase = () => {
 
               if (!cards.length) return;
 
+              const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+              // On mobile: simple data shuffle without animation
+              if (isMobile) {
+                setVisibleRepos((prev) => {
+                  const next = [...prev];
+                  for (let i = next.length - 1; i > 0; i -= 1) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [next[i], next[j]] = [next[j], next[i]];
+                  }
+                  return next;
+                });
+                return;
+              }
+
+              // Desktop: keep the animated shuffle timeline
               setIsShuffling(true);
 
               const tl = gsap.timeline({

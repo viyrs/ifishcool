@@ -362,6 +362,67 @@ const ProjectsStrip = ({ introReady = true, shellRef }: ProjectsStripProps) => {
     };
   }, [activeProject]);
 
+  const handleCloseProject = () => {
+    if (!sectionRef.current) {
+      setActiveProject(null);
+      return;
+    }
+
+    const panel = sectionRef.current.querySelector<HTMLElement>(
+      ".project-modal-panel"
+    );
+
+    if (!panel) {
+      setActiveProject(null);
+      return;
+    }
+
+    gsap.to(panel, {
+      y: 140,
+      opacity: 0,
+      scale: 0.9,
+      duration: 0.4,
+      ease: "power2.in",
+      onComplete: () => {
+        setActiveProject(null);
+      },
+    });
+  };
+
+  // Animate modal panel entrance: slide up from bottom with a soft bounce
+  useEffect(() => {
+    if (!activeProject || !sectionRef.current) return;
+
+    const ctx = gsap.context(() => {
+      const panel = sectionRef.current!.querySelector<HTMLElement>(
+        ".project-modal-panel"
+      );
+
+      if (!panel) return;
+
+      gsap.fromTo(
+        panel,
+        {
+          y: 140,
+          opacity: 0,
+          scale: 0.9,
+          transformOrigin: "50% 100%",
+        },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 0.6,
+          ease: "back.out(2.1)",
+        }
+      );
+    }, sectionRef);
+
+    return () => {
+      ctx.revert();
+    };
+  }, [activeProject]);
+
   return (
     <section className="projects-strip" ref={sectionRef}>
       <div className="projects-strip-inner">
@@ -414,10 +475,7 @@ const ProjectsStrip = ({ introReady = true, shellRef }: ProjectsStripProps) => {
         </div>
 
         {activeProject && (
-          <div
-            className="project-modal-overlay"
-            onClick={() => setActiveProject(null)}
-          >
+          <div className="project-modal-overlay" onClick={handleCloseProject}>
             <div
               className="project-modal-panel"
               onClick={(e) => e.stopPropagation()}
@@ -431,7 +489,7 @@ const ProjectsStrip = ({ introReady = true, shellRef }: ProjectsStripProps) => {
                 <button
                   type="button"
                   className="project-modal-close"
-                  onClick={() => setActiveProject(null)}
+                  onClick={handleCloseProject}
                 >
                   Close
                 </button>
