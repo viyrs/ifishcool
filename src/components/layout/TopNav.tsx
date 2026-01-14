@@ -1,4 +1,8 @@
 import React, { forwardRef } from "react";
+import { gsap } from "gsap";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+
+gsap.registerPlugin(ScrollToPlugin);
 
 export type TopNavProps = {
   menuOpen: boolean;
@@ -9,6 +13,19 @@ export type TopNavProps = {
 
 const TopNav = forwardRef<HTMLElement, TopNavProps>(
   ({ menuOpen, menuAnimatingOut, onToggleMenu, dropdownRef }, headerRef) => {
+    const handleScrollTo = (target: string) => {
+      gsap.to(window, {
+        duration: 0.9,
+        ease: "power3.inOut",
+        scrollTo: { y: target, offsetY: 90 },
+      });
+    };
+
+    const handleSelect = (target: string) => {
+      onToggleMenu();
+      handleScrollTo(target);
+    };
+
     return (
       <header
         ref={headerRef}
@@ -61,16 +78,32 @@ const TopNav = forwardRef<HTMLElement, TopNavProps>(
                 : "top-nav-dropdown--open"
             }`}
           >
-            <button type="button" className="top-nav-dropdown-item">
+            <button
+              type="button"
+              className="top-nav-dropdown-item"
+              onClick={() => handleSelect("#projects")}
+            >
               作品集 · Projects
             </button>
-            <button type="button" className="top-nav-dropdown-item">
+            <button
+              type="button"
+              className="top-nav-dropdown-item"
+              onClick={() => handleSelect("#about")}
+            >
               关于我 · About
             </button>
-            <button type="button" className="top-nav-dropdown-item">
+            <button
+              type="button"
+              className="top-nav-dropdown-item"
+              onClick={() => handleSelect("#notes")}
+            >
               博客 / 记录 · Notes
             </button>
-            <button type="button" className="top-nav-dropdown-item">
+            <button
+              type="button"
+              className="top-nav-dropdown-item"
+              onClick={() => handleSelect("#contact")}
+            >
               联系方式 · Contact
             </button>
           </div>

@@ -48,6 +48,17 @@ body::-webkit-scrollbar-thumb {
   min-height: 100vh;
 }
 
+#smooth-wrapper {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+#smooth-content {
+  position: relative;
+  min-height: 100vh;
+}
+
 .app-root {
   min-height: 100vh;
 
@@ -625,7 +636,8 @@ body::-webkit-scrollbar-thumb {
 }
 
 .top-nav-dropdown-item:hover {
-  background: rgba(182, 255, 43, 0.5);
+  background: rgb(181, 255, 43);
+  color: #000000;
 }
 
 @keyframes top-nav-dropdown-open {
