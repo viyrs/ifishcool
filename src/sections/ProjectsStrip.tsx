@@ -17,7 +17,6 @@ type ProjectsStripProps = {
 };
 
 type ProjectCard = {
-  id: string;
   title: string;
   meta: string;
   desc: string;
@@ -26,7 +25,73 @@ type ProjectCard = {
 
 const PROJECT_CARDS: ProjectCard[] = [
   {
-    id: "generative-sketchpad",
+    title: "Generative Sketchpad",
+    meta: "AI · Product · Frontend",
+    desc: "Real-time canvas for exploring model-assisted drawing and interaction patterns.",
+    bodyMd: `# Generative Sketchpad
+
+An experimental **real-time canvas** for exploring model-assisted drawing and interaction patterns.
+
+## What it explores
+
+- Mixing human sketching with generative AI
+- Fast iteration loops on layout and composition
+- Lightweight tooling that feels more like play than tooling
+
+## Stack
+
+- React + GSAP motion
+- Canvas-based rendering experiments
+## What it explores
+
+- Mixing human sketching with generative AI
+- Fast iteration loops on layout and composition
+- Lightweight tooling that feels more like play than tooling
+
+## Stack
+
+- React + GSAP motion
+- Canvas-based rendering experiments## What it explores
+
+- Mixing human sketching with generative AI
+- Fast iteration loops on layout and composition
+- Lightweight tooling that feels more like play than tooling
+
+## Stack
+
+- React + GSAP motion
+- Canvas-based rendering experiments## What it explores
+
+- Mixing human sketching with generative AI
+- Fast iteration loops on layout and composition
+- Lightweight tooling that feels more like play than tooling
+
+## Stack
+
+- React + GSAP motion
+- Canvas-based rendering experiments## What it explores
+
+- Mixing human sketching with generative AI
+- Fast iteration loops on layout and composition
+- Lightweight tooling that feels more like play than tooling
+
+## Stack
+
+- React + GSAP motion
+- Canvas-based rendering experiments## What it explores
+
+- Mixing human sketching with generative AI
+- Fast iteration loops on layout and composition
+- Lightweight tooling that feels more like play than tooling
+
+## Stack
+
+- React + GSAP motion
+- Canvas-based rendering experiments
+- LLM-assisted ideation workflows`,
+  },
+
+  {
     title: "Generative Sketchpad",
     meta: "AI · Product · Frontend",
     desc: "Real-time canvas for exploring model-assisted drawing and interaction patterns.",
@@ -93,7 +158,72 @@ An experimental **real-time canvas** for exploring model-assisted drawing and in
 - LLM-assisted ideation workflows`,
   },
   {
-    id: "prompt-playground",
+    title: "Generative Sketchpad",
+    meta: "AI · Product · Frontend",
+    desc: "Real-time canvas for exploring model-assisted drawing and interaction patterns.",
+    bodyMd: `# Generative Sketchpad
+
+An experimental **real-time canvas** for exploring model-assisted drawing and interaction patterns.
+
+## What it explores
+
+- Mixing human sketching with generative AI
+- Fast iteration loops on layout and composition
+- Lightweight tooling that feels more like play than tooling
+
+## Stack
+
+- React + GSAP motion
+- Canvas-based rendering experiments
+## What it explores
+
+- Mixing human sketching with generative AI
+- Fast iteration loops on layout and composition
+- Lightweight tooling that feels more like play than tooling
+
+## Stack
+
+- React + GSAP motion
+- Canvas-based rendering experiments## What it explores
+
+- Mixing human sketching with generative AI
+- Fast iteration loops on layout and composition
+- Lightweight tooling that feels more like play than tooling
+
+## Stack
+
+- React + GSAP motion
+- Canvas-based rendering experiments## What it explores
+
+- Mixing human sketching with generative AI
+- Fast iteration loops on layout and composition
+- Lightweight tooling that feels more like play than tooling
+
+## Stack
+
+- React + GSAP motion
+- Canvas-based rendering experiments## What it explores
+
+- Mixing human sketching with generative AI
+- Fast iteration loops on layout and composition
+- Lightweight tooling that feels more like play than tooling
+
+## Stack
+
+- React + GSAP motion
+- Canvas-based rendering experiments## What it explores
+
+- Mixing human sketching with generative AI
+- Fast iteration loops on layout and composition
+- Lightweight tooling that feels more like play than tooling
+
+## Stack
+
+- React + GSAP motion
+- Canvas-based rendering experiments
+- LLM-assisted ideation workflows`,
+  },
+  {
     title: "Prompt Playground",
     meta: "LLM · Tools",
     desc: "A tool for designing, testing and visualizing complex prompt flows for multi-agent systems.",
@@ -156,7 +286,6 @@ Design, test and visualize **complex prompt flows** for multi-agent systems.
 - Experimental evaluation hooks`,
   },
   {
-    id: "neon-poster-engine",
     title: "Neon Poster Engine",
     meta: "Design · Motion",
     desc: "Procedural poster generator with GSAP-driven motion previews and exportable frames.",
@@ -177,7 +306,6 @@ Procedural **poster generator** with GSAP-driven motion previews and exportable 
 - High-contrast type experiments`,
   },
   {
-    id: "studio-dashboard",
     title: "Studio Dashboard",
     meta: "Web · Data",
     desc: "A minimal control room interface for monitoring experiments and deployments.",
@@ -198,7 +326,6 @@ A minimal **control room interface** for monitoring experiments and deployments.
 - Micro-interactions to highlight change`,
   },
   {
-    id: "omaukol-index",
     title: "OMAUKOL Index",
     meta: "Personal · Archive",
     desc: "Living index of works, notes and visual experiments across code, AI and design.",
@@ -301,6 +428,12 @@ const ProjectsStrip = ({ introReady = true, shellRef }: ProjectsStripProps) => {
       // Scroll-triggered horizontal movement: user scrolls down, track
       // moves from right to left while section is pinned
       if (track && triggerRoot) {
+        const cardCount = cards.length || 1;
+        // Make scroll distance scale with how many cards we have so that
+        // when there are many cards, the overall movement feels slower
+        // relative to the user's scroll.
+        const scrollDistance = 900 + cardCount * 50;
+
         gsap.fromTo(
           track,
           { xPercent: 0 },
@@ -310,8 +443,8 @@ const ProjectsStrip = ({ introReady = true, shellRef }: ProjectsStripProps) => {
             scrollTrigger: {
               trigger: triggerRoot,
               start: "top top",
-              end: "+=1400", // 再拉长一点滚动距离，让节奏更从容
-              scrub: 3, // 提升阻尼感：动画明显滞后，再缓缓追上滚动
+              end: `+=${scrollDistance}`,
+              scrub: 3,
               pin: true,
               onUpdate: (self) => {
                 if (!planets.length) return;
@@ -431,11 +564,12 @@ const ProjectsStrip = ({ introReady = true, shellRef }: ProjectsStripProps) => {
           {PROJECT_CARDS.map((project, index) => {
             const thumbClass =
               THUMB_CLASSES[index % THUMB_CLASSES.length] ?? THUMB_CLASSES[0];
+            const projectId = `project-${index + 1}`;
 
             return (
               <article
                 className="project-card"
-                key={project.id}
+                key={projectId}
                 onClick={() => setActiveProject(project)}
               >
                 <div className={"project-card-thumb " + thumbClass} />
