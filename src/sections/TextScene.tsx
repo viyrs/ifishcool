@@ -27,10 +27,15 @@ const TextScene = () => {
         {
           opacity: 1,
           y: 0,
-          rotation: () => gsap.utils.random(-3, 3),
+          //  rotation: () => gsap.utils.random(-3, 3),
           duration: 0.6,
           ease: "back.out(2)",
           stagger: 0.08,
+          scrollTrigger: {
+            trigger: section,
+            start: "top 95%",
+            toggleActions: "play none none none",
+          },
         }
       );
 
@@ -38,7 +43,17 @@ const TextScene = () => {
       gsap.fromTo(
         section,
         { opacity: 0, y: 60 },
-        { opacity: 1, y: 0, duration: 1.2, ease: "power3.out" }
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: section,
+            start: "top 95%",
+            toggleActions: "play none none none",
+          },
+        }
       );
 
       // Scroll-based subtle parallax on desktop
@@ -68,17 +83,19 @@ const TextScene = () => {
       <div className="text-scene-inner" ref={textRef}>
         <div className="text-scene-copy">
           <p className="text-scene-line text-scene-line--accent">
-            我在做的是一套给自己用的「开发 × AI × 设计」工具箱。
+            I'm building a personal "Dev × AI × Design" toolkit for my own work.
           </p>
           <p className="text-scene-line">
-            它不是一个单一项目，而是一系列实验性的产品、交互和工作流，
+            It's not a single project, but a series of experimental products,
+            interactions, and workflows
           </p>
           <p className="text-scene-line">
-            用来探索 AI
-            如何真正帮我把想法更快地落到屏幕上，而不是只是生成几段文案。
+            exploring how AI can actually help me ship ideas faster to the
+            screen, instead of just generating a few lines of copy.
           </p>
           <p className="text-scene-line">
-            每一个模块都是可以拆开重用的积木，既为自己的工作服务，也为未来的合作留出接口。
+            Each module is a reusable building block, serving my own work while
+            leaving hooks open for future collaboration.
           </p>
         </div>
 

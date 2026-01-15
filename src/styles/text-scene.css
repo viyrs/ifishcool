@@ -1,0 +1,66 @@
+/* Cinematic large-copy scene */
+
+.text-scene {
+  position: relative;
+  padding: 6rem 3.5rem 7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.text-scene-inner {
+  position: relative;
+  max-width: 1360px;
+  z-index: 1;
+}
+
+.text-scene::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+}
+
+.text-scene-copy {
+  position: relative;
+  z-index: 2;
+}
+
+.text-scene-line {
+  margin: 0 0 1.2rem;
+  font-size: clamp(1.4rem, 2.6vw + 0.4rem, 2.1rem);
+  line-height: 1.7;
+  color: rgba(245, 245, 245, 0.88);
+}
+
+.text-scene-line--accent {
+  font-weight: 700;
+  color: #f9fafb;
+}
+
+.text-scene-decor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.text-scene-decor-svg {
+  position: absolute;
+  right: -40px;
+  top: -10px;
+  width: 420px;
+  height: auto;
+  opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+  .text-scene {
+    padding: 4.5rem 1.5rem 5rem;
+  }
+
+  .text-scene-line {
+    font-size: 1.2rem;
+  }
+}

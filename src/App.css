@@ -1,11 +1,48 @@
 /* App layout */
-
+@import "./styles/project-modal.css";
+@import "./styles/project-modal.css";
+@import "./styles/hero.css";
+@import "./styles/projects-strip.css";
+@import "./styles/text-scene.css";
+@import "./styles/oss-section.css";
+@import "./styles/big-footer.css";
 @font-face {
   font-family: "PacificoLocal";
   src: url("./assets/Pacifico-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
+}
+
+:root {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light;
+  color: #101010;
+  background-color: #fdfdfd;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  margin: 0;
+}
+
+a {
+  font-weight: 500;
+  color: #111;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #000;
 }
 
 .pacifico-regular {
@@ -27,8 +64,9 @@ a[href],
 }
 ::selection {
   background: #b6ff2b;
-  color: #050505; /* 让文字在酸性绿色背景上更清晰 */
+  color: #050505; /* Keep text readable on the neon green background */
 }
+
 /* Global scrollbar styling - thin neon rail */
 body::-webkit-scrollbar {
   width: 6px;
@@ -189,7 +227,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .intro-gate--closing {
-  /* longer, softer fade out for the whole overlay */
+  /* Longer, softer fade out for the whole overlay */
   animation: intro-gate-out 1.4s ease-in-out both;
 }
 
@@ -199,7 +237,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .intro-gate--closing .intro-gate-title-part--left {
-  /* title parts glide back to center with strong ease-out */
+  /* Title parts glide back to center with strong ease-out */
   animation: intro-title-close-left 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
@@ -699,7 +737,7 @@ body::-webkit-scrollbar-thumb {
 
 .hero-root {
   flex: 1;
-  max-width: 1120px;
+  max-width: 1360px;
   margin: 0 auto;
   padding: 6rem 3rem 3rem;
   display: flex;
@@ -771,7 +809,7 @@ body::-webkit-scrollbar-thumb {
 
 .hero-content {
   width: 100%;
-  max-width: 960px;
+  max-width: 1200px;
 }
 
 .hero-title-block {
@@ -813,48 +851,7 @@ body::-webkit-scrollbar-thumb {
 
 .hero-tags {
   display: inline-flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 1.5rem;
 }
-
-.hero-tag {
-  padding: 0.4rem 0.8rem;
-  border-radius: 999px;
-  background-color: rgba(255, 255, 255, 0.06);
-  font-size: 0.78rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.hero-meta {
-  margin-top: 2.4rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.8rem;
-  justify-content: center;
-}
-
-.hero-meta-column {
-  min-width: 220px;
-}
-
-.hero-meta-label {
-  margin: 0 0 0.35rem;
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  color: rgba(240, 240, 240, 0.6);
-}
-
-.hero-meta-value {
-  margin: 0;
-  font-size: 0.95rem;
-  color: rgba(250, 250, 250, 0.9);
-}
-
-/* Side text at 10px from left/right edges */
-
 .side-text {
   position: fixed;
   top: 50%;
@@ -886,42 +883,6 @@ body::-webkit-scrollbar-thumb {
   }
 }
 
-/* Horizontal projects strip section */
-
-.projects-strip {
-  position: relative;
-  padding: 0 3rem 4rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.projects-strip-inner {
-  width: 100%;
-  max-width: 1200px;
-}
-
-.projects-strip-label {
-  font-size: 0.72rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: rgba(245, 245, 245, 0.6);
-  margin-bottom: 1.4rem;
-}
-
-.projects-strip-track {
-  display: inline-flex;
-  gap: 1.5rem;
-}
-
-.projects-orbit-layer {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-}
-
 .projects-orbit-svg {
   position: absolute;
   right: -40px;
@@ -946,130 +907,6 @@ body::-webkit-scrollbar-thumb {
 .projects-orbit-planet--three {
   fill: #a855f7;
   filter: drop-shadow(0 0 18px rgba(168, 85, 247, 0.95));
-}
-
-/* Project detail modal from ProjectsStrip */
-
-.project-modal-overlay {
-  position: fixed;
-  inset: 0;
-
-  backdrop-filter: blur(18px);
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-
-  z-index: 80;
-}
-
-.project-modal-panel {
-  position: relative;
-  width: min(880px, 100% - 3rem);
-  max-height: calc(90vh);
-  border-radius: 28px;
-  border: 1px solid rgba(148, 163, 184, 0.55);
-  border-top: 0;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  border-bottom-left-radius: 28px;
-  border-bottom-right-radius: 28px;
-  background-color: #000000;
-  background-image: linear-gradient(
-      rgba(148, 163, 184, 0.12) 1px,
-      transparent 1px
-    ),
-    linear-gradient(90deg, rgba(148, 163, 184, 0.12) 1px, transparent 1px);
-  background-size: 40px 40px;
-  background-position: -1px -1px;
-  box-shadow: 0 32px 120px rgba(0, 0, 0, 0.9);
-  padding: 1.6rem 1.7rem 1.5rem;
-  display: flex;
-  flex-direction: column;
-}
-
-.project-modal-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 1.5rem;
-  margin-bottom: 1.25rem;
-}
-
-.project-modal-label {
-  font-size: 0.72rem;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: rgba(148, 163, 184, 0.9);
-  margin-bottom: 0.4rem;
-}
-
-.project-modal-title {
-  font-size: 1.4rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #f9fafb;
-}
-
-.project-modal-meta {
-  margin-top: 0.2rem;
-  font-size: 0.8rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(148, 163, 184, 0.9);
-}
-
-.project-modal-close {
-  border-radius: 999px;
-  border: 1px solid rgba(148, 163, 184, 0.6);
-  background: rgba(0, 0, 0, 0.95);
-  color: rgba(226, 232, 240, 0.92);
-  font-size: 0.72rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  padding: 0.4rem 0.9rem;
-}
-
-.project-modal-close:hover {
-  border-color: rgba(182, 255, 43, 0.9);
-  color: #f9fafb;
-}
-
-.project-modal-body {
-  flex: 1;
-  padding-top: 0.4rem;
-  margin-top: 0.2rem;
-  border-top: 1px solid rgba(148, 163, 184, 0.5);
-  overflow-y: auto;
-  overflow-x: hidden;
-  font-size: 0.9rem;
-  line-height: 1.7;
-  color: rgba(226, 232, 240, 0.9);
-}
-
-.project-modal-body::-webkit-scrollbar {
-  width: 6px;
-}
-
-.project-modal-body::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.project-modal-body::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #b6ff2b, #22c55e);
-  border-radius: 999px;
-}
-
-@media (max-width: 768px) {
-  .project-modal-panel {
-    width: 100%;
-
-    border-radius: 0;
-  }
-
-  .project-modal-header {
-    align-items: flex-start;
-    gap: 1rem;
-  }
 }
 
 .project-card {
@@ -1206,11 +1043,17 @@ body::-webkit-scrollbar-thumb {
 
 .text-scene {
   position: relative;
-  padding: 6rem 3rem 7rem;
+  padding: 6rem 3.5rem 7rem;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+}
+
+.text-scene-inner {
+  position: relative;
+  max-width: 1360px;
+  z-index: 1;
 }
 
 .text-scene::before {
@@ -1219,12 +1062,6 @@ body::-webkit-scrollbar-thumb {
   inset: -20%;
 
   pointer-events: none;
-}
-
-.text-scene-inner {
-  position: relative;
-  max-width: 960px;
-  z-index: 1;
 }
 
 .text-scene-copy {
@@ -1273,11 +1110,13 @@ body::-webkit-scrollbar-thumb {
 /* Open source showcase section */
 
 .oss-section {
-  padding: 4rem 3rem 5rem;
+  padding: 4rem 3.5rem 5rem;
 }
 
 .oss-inner {
   position: relative;
+  max-width: 1360px;
+  margin: 0 auto;
 }
 
 .oss-orbit-layer {
@@ -1311,11 +1150,6 @@ body::-webkit-scrollbar-thumb {
   filter: drop-shadow(0 0 16px rgba(225, 29, 72, 0.95));
 }
 
-.oss-inner {
-  max-width: 1120px;
-  margin: 0 auto;
-}
-
 .oss-label {
   font-size: 0.74rem;
   letter-spacing: 0.22em;
@@ -1331,8 +1165,9 @@ body::-webkit-scrollbar-thumb {
 }
 
 .oss-track {
-  display: inline-flex;
+  display: flex;
   gap: 2rem;
+  justify-content: center;
 
   padding-bottom: 0.6rem;
   -webkit-overflow-scrolling: touch;
@@ -1498,12 +1333,12 @@ body::-webkit-scrollbar-thumb {
 /* Big footer strip */
 
 .big-footer {
-  padding: 3.5rem 2.5rem 2.5rem;
+  padding: 3.5rem 3rem 2.5rem;
 }
 
 .big-footer-inner {
   position: relative;
-  max-width: 1120px;
+  max-width: 1360px;
   margin: 0 auto;
 }
 
@@ -1647,7 +1482,12 @@ body::-webkit-scrollbar-thumb {
   }
 
   .big-footer-meta-right {
+    margin-top: 20px;
     align-items: flex-start;
+  }
+
+  .big-footer-tags {
+    display: none;
   }
 
   .big-footer-socials {

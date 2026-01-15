@@ -1,0 +1,339 @@
+/* Project detail modal from ProjectsStrip */
+
+.project-modal-overlay {
+  position: fixed;
+  inset: 0;
+
+  backdrop-filter: blur(18px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+
+  z-index: 80;
+}
+
+.project-modal-panel {
+  position: relative;
+  width: min(1200px, 100% - 3rem);
+  max-height: calc(90vh);
+  border-radius: 28px;
+  border: 1px solid rgba(148, 163, 184, 0.55);
+  border-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 28px;
+  border-bottom-right-radius: 28px;
+  background-color: #000000;
+  background-image: linear-gradient(
+      rgba(148, 163, 184, 0.12) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.12) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: -1px -1px;
+  box-shadow: 0 32px 120px rgba(0, 0, 0, 0.9);
+  padding: 1.6rem 1.7rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.project-modal-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(148, 163, 184, 0.9);
+  margin-bottom: 0.4rem;
+}
+
+.project-modal-title {
+  font-size: 1.4rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #f9fafb;
+}
+
+.project-modal-meta {
+  margin-top: 0.2rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(148, 163, 184, 0.9);
+}
+
+.project-modal-close {
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  background: rgba(0, 0, 0, 0.95);
+  color: rgba(226, 232, 240, 0.92);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.9rem;
+}
+
+.project-modal-close:hover {
+  border-color: rgba(182, 255, 43, 0.9);
+  color: #f9fafb;
+}
+
+.project-modal-body {
+  flex: 1;
+  padding-top: 0.4rem;
+  margin-top: 0.2rem;
+  border-top: 1px solid rgba(148, 163, 184, 0.5);
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-size: 1.2rem;
+  line-height: 1.7;
+  color: rgba(226, 232, 240, 0.9);
+}
+
+.project-modal-body h1,
+.project-modal-body h2,
+.project-modal-body h3,
+.project-modal-body h4,
+.project-modal-body h5,
+.project-modal-body h6 {
+  margin-top: 1.1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.08em;
+  color: #d9ff9e;
+  position: relative;
+  padding-left: 1.3rem;
+}
+
+.project-modal-body h2,
+.project-modal-body h3,
+.project-modal-body h4,
+.project-modal-body h5,
+.project-modal-body h6 {
+  border-top: 1px solid #48513bb5;
+  padding-top: 1.5rem;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+}
+
+.project-modal-body h1::before,
+.project-modal-body h2::before,
+.project-modal-body h3::before,
+.project-modal-body h4::before,
+.project-modal-body h5::before,
+.project-modal-body h6::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1.5rem;
+  bottom: 0.15rem;
+  width: 8px;
+  border-radius: 1px;
+  background: linear-gradient(to bottom, #bbf7d0, #4ade80);
+  opacity: 0.9;
+}
+
+.project-modal-body h1::before {
+  top: 0.3rem;
+}
+
+.project-modal-body h1 {
+  font-size: 2.5rem;
+}
+
+.project-modal-body h2 {
+  font-size: 2rem;
+}
+
+.project-modal-body h3 {
+  font-size: 1.5rem;
+}
+
+.project-modal-body h4 {
+  font-size: 1rem;
+}
+
+.project-modal-body h5 {
+  font-size: 0.7rem;
+}
+
+.project-modal-body h6 {
+  font-size: 0.5rem;
+}
+
+.project-modal-body p {
+  margin: 0.35rem 0;
+}
+
+.project-modal-body a {
+  color: #bef264;
+  text-decoration: none;
+  border-bottom: 1px dotted rgba(190, 242, 100, 0.7);
+}
+
+.project-modal-body a:hover {
+  color: #d9f99d;
+  border-bottom-style: solid;
+}
+
+.project-modal-body ul,
+.project-modal-body ol {
+  padding-left: 1.3rem;
+  margin: 0.6rem 0 0.9rem;
+}
+
+.project-modal-body li {
+  margin: 0.15rem 0;
+}
+
+.project-modal-body li strong {
+  display: inline-block;
+  font-weight: 700;
+  color: #e5f8ff;
+}
+
+.project-modal-body ul li::marker {
+  color: #bbf7d0;
+}
+
+.project-modal-body ol li::marker {
+  color: #a5b4fc;
+  font-weight: 600;
+}
+
+.project-modal-body code {
+  padding: 0.1rem 0.3rem;
+  border-radius: 4px;
+  border: 1px solid rgba(132, 204, 22, 0.65);
+}
+
+.project-modal-body pre {
+  margin: 0.7rem 0;
+  padding: 0.75rem 0.9rem;
+  border-radius: 10px;
+  background: transparent;
+  border: 1px solid rgba(74, 222, 128, 0.85);
+  overflow-x: auto;
+}
+
+.project-modal-body pre::-webkit-scrollbar {
+  height: 10px;
+}
+
+.project-modal-body pre::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.project-modal-body pre::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, #b6ff2b, #22c55e);
+  border-radius: 999px;
+}
+
+.project-modal-body pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+
+.project-modal-body blockquote {
+  margin: 0.7rem 0;
+  padding: 0.55rem 0.9rem;
+  border-left: 3px solid rgba(132, 204, 22, 0.9);
+  background: rgba(7, 24, 13, 0.9);
+  border-radius: 0 10px 10px 0;
+  color: rgba(226, 232, 240, 0.9);
+}
+
+.project-modal-body hr {
+  margin: 1rem 0;
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #bbf7d0, transparent);
+}
+
+.project-modal-body img {
+  max-width: 100%;
+  border-radius: 12px;
+  margin: 0.7rem 0;
+  display: block;
+}
+
+.project-modal-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.7rem 0;
+  font-size: 0.8rem;
+}
+
+.project-modal-body th,
+.project-modal-body td {
+  border: 1px solid rgba(21, 128, 60, 0.46);
+  padding: 0.8rem 0.8rem;
+  font-size: 16px;
+}
+
+.project-modal-body th {
+  background: rgba(5, 24, 13, 0.98);
+  font-weight: 600;
+}
+
+.project-modal-body tr:nth-child(even) td {
+  background: rgba(6, 24, 14, 0.9);
+}
+
+.project-modal-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.project-modal-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.project-modal-body::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #b6ff2b, #22c55e);
+  border-radius: 999px;
+}
+
+@media (max-width: 768px) {
+  .project-modal-panel {
+    border-radius: 0;
+  }
+
+  .project-modal-header {
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+/* Project cards in ProjectsStrip */
+
+.project-card {
+  width: 280px;
+  min-height: 180px;
+  padding: 1.1rem 1.1rem 1.2rem;
+  border-radius: 18px;
+  background: radial-gradient(circle at top left, #242424, #101010 65%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+  flex-shrink: 0;
+}
+
+.project-card-thumb {
+  width: 100%;
+  height: 110px;
+  border-radius: 14px;
+  margin-bottom: 0.9rem;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+/* ...project-card thumb variants, title/meta/desc and hover state remain in App.css or can also be moved here when you want */

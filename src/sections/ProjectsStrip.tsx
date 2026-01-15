@@ -1,351 +1,17 @@
-import {
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-  type RefObject,
-} from "react";
+import { useEffect, useRef, useState, type RefObject } from "react";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ReactMarkdown from "react-markdown";
-
-gsap.registerPlugin(ScrollTrigger);
+import type { Components } from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
+import { codeToHtml } from "shiki";
+import { PROJECT_CARDS, type ProjectCard } from "../config/projects";
+import { useProjectsStripAnimation } from "../hooks/useProjectsStripAnimation";
 
 type ProjectsStripProps = {
   introReady?: boolean;
   shellRef?: RefObject<HTMLDivElement | null>;
 };
-
-type ProjectCard = {
-  title: string;
-  meta: string;
-  desc: string;
-  bodyMd: string;
-};
-
-const PROJECT_CARDS: ProjectCard[] = [
-  {
-    title: "Generative Sketchpad",
-    meta: "AI · Product · Frontend",
-    desc: "Real-time canvas for exploring model-assisted drawing and interaction patterns.",
-    bodyMd: `# Generative Sketchpad
-
-An experimental **real-time canvas** for exploring model-assisted drawing and interaction patterns.
-
-## What it explores
-
-- Mixing human sketching with generative AI
-- Fast iteration loops on layout and composition
-- Lightweight tooling that feels more like play than tooling
-
-## Stack
-
-- React + GSAP motion
-- Canvas-based rendering experiments
-## What it explores
-
-- Mixing human sketching with generative AI
-- Fast iteration loops on layout and composition
-- Lightweight tooling that feels more like play than tooling
-
-## Stack
-
-- React + GSAP motion
-- Canvas-based rendering experiments## What it explores
-
-- Mixing human sketching with generative AI
-- Fast iteration loops on layout and composition
-- Lightweight tooling that feels more like play than tooling
-
-## Stack
-
-- React + GSAP motion
-- Canvas-based rendering experiments## What it explores
-
-- Mixing human sketching with generative AI
-- Fast iteration loops on layout and composition
-- Lightweight tooling that feels more like play than tooling
-
-## Stack
-
-- React + GSAP motion
-- Canvas-based rendering experiments## What it explores
-
-- Mixing human sketching with generative AI
-- Fast iteration loops on layout and composition
-- Lightweight tooling that feels more like play than tooling
-
-## Stack
-
-- React + GSAP motion
-- Canvas-based rendering experiments## What it explores
-
-- Mixing human sketching with generative AI
-- Fast iteration loops on layout and composition
-- Lightweight tooling that feels more like play than tooling
-
-## Stack
-
-- React + GSAP motion
-- Canvas-based rendering experiments
-- LLM-assisted ideation workflows`,
-  },
-
-  {
-    title: "Generative Sketchpad",
-    meta: "AI · Product · Frontend",
-    desc: "Real-time canvas for exploring model-assisted drawing and interaction patterns.",
-    bodyMd: `# Generative Sketchpad
-
-An experimental **real-time canvas** for exploring model-assisted drawing and interaction patterns.
-
-## What it explores
-
-- Mixing human sketching with generative AI
-- Fast iteration loops on layout and composition
-- Lightweight tooling that feels more like play than tooling
-
-## Stack
-
-- React + GSAP motion
-- Canvas-based rendering experiments
-## What it explores
-
-- Mixing human sketching with generative AI
-- Fast iteration loops on layout and composition
-- Lightweight tooling that feels more like play than tooling
-
-## Stack
-
-- React + GSAP motion
-- Canvas-based rendering experiments## What it explores
-
-- Mixing human sketching with generative AI
-- Fast iteration loops on layout and composition
-- Lightweight tooling that feels more like play than tooling
-
-## Stack
-
-- React + GSAP motion
-- Canvas-based rendering experiments## What it explores
-
-- Mixing human sketching with generative AI
-- Fast iteration loops on layout and composition
-- Lightweight tooling that feels more like play than tooling
-
-## Stack
-
-- React + GSAP motion
-- Canvas-based rendering experiments## What it explores
-
-- Mixing human sketching with generative AI
-- Fast iteration loops on layout and composition
-- Lightweight tooling that feels more like play than tooling
-
-## Stack
-
-- React + GSAP motion
-- Canvas-based rendering experiments## What it explores
-
-- Mixing human sketching with generative AI
-- Fast iteration loops on layout and composition
-- Lightweight tooling that feels more like play than tooling
-
-## Stack
-
-- React + GSAP motion
-- Canvas-based rendering experiments
-- LLM-assisted ideation workflows`,
-  },
-  {
-    title: "Generative Sketchpad",
-    meta: "AI · Product · Frontend",
-    desc: "Real-time canvas for exploring model-assisted drawing and interaction patterns.",
-    bodyMd: `# Generative Sketchpad
-
-An experimental **real-time canvas** for exploring model-assisted drawing and interaction patterns.
-
-## What it explores
-
-- Mixing human sketching with generative AI
-- Fast iteration loops on layout and composition
-- Lightweight tooling that feels more like play than tooling
-
-## Stack
-
-- React + GSAP motion
-- Canvas-based rendering experiments
-## What it explores
-
-- Mixing human sketching with generative AI
-- Fast iteration loops on layout and composition
-- Lightweight tooling that feels more like play than tooling
-
-## Stack
-
-- React + GSAP motion
-- Canvas-based rendering experiments## What it explores
-
-- Mixing human sketching with generative AI
-- Fast iteration loops on layout and composition
-- Lightweight tooling that feels more like play than tooling
-
-## Stack
-
-- React + GSAP motion
-- Canvas-based rendering experiments## What it explores
-
-- Mixing human sketching with generative AI
-- Fast iteration loops on layout and composition
-- Lightweight tooling that feels more like play than tooling
-
-## Stack
-
-- React + GSAP motion
-- Canvas-based rendering experiments## What it explores
-
-- Mixing human sketching with generative AI
-- Fast iteration loops on layout and composition
-- Lightweight tooling that feels more like play than tooling
-
-## Stack
-
-- React + GSAP motion
-- Canvas-based rendering experiments## What it explores
-
-- Mixing human sketching with generative AI
-- Fast iteration loops on layout and composition
-- Lightweight tooling that feels more like play than tooling
-
-## Stack
-
-- React + GSAP motion
-- Canvas-based rendering experiments
-- LLM-assisted ideation workflows`,
-  },
-  {
-    title: "Prompt Playground",
-    meta: "LLM · Tools",
-    desc: "A tool for designing, testing and visualizing complex prompt flows for multi-agent systems.",
-    bodyMd: `# Prompt Playground
-
-Design, test and visualize **complex prompt flows** for multi-agent systems.
-
-## Highlights
-
-- Node-based flow editor for prompts
-- Inline test runs with token + latency stats
-- Versioned prompt snippets you can remix
-Design, test and visualize **complex prompt flows** for multi-agent systems.
-
-## Highlights
-
-- Node-based flow editor for prompts
-- Inline test runs with token + latency stats
-- Versioned prompt snippets you can remixDesign, test and visualize **complex prompt flows** for multi-agent systems.
-
-## Highlights
-
-- Node-based flow editor for prompts
-- Inline test runs with token + latency stats
-- Versioned prompt snippets you can remixDesign, test and visualize **complex prompt flows** for multi-agent systems.
-
-## Highlights
-
-- Node-based flow editor for prompts
-- Inline test runs with token + latency stats
-- Versioned prompt snippets you can remixDesign, test and visualize **complex prompt flows** for multi-agent systems.
-
-## Highlights
-
-- Node-based flow editor for prompts
-- Inline test runs with token + latency stats
-- Versioned prompt snippets you can remixDesign, test and visualize **complex prompt flows** for multi-agent systems.
-
-## Highlights
-
-- Node-based flow editor for prompts
-- Inline test runs with token + latency stats
-- Versioned prompt snippets you can remixDesign, test and visualize **complex prompt flows** for multi-agent systems.
-
-## Highlights
-
-- Node-based flow editor for prompts
-- Inline test runs with token + latency stats
-- Versioned prompt snippets you can remixDesign, test and visualize **complex prompt flows** for multi-agent systems.
-
-## Highlights
-
-- Node-based flow editor for prompts
-- Inline test runs with token + latency stats
-- Versioned prompt snippets you can remix
-## Stack
-
-- React + TypeScript
-- API-first prompt execution layer
-- Experimental evaluation hooks`,
-  },
-  {
-    title: "Neon Poster Engine",
-    meta: "Design · Motion",
-    desc: "Procedural poster generator with GSAP-driven motion previews and exportable frames.",
-    bodyMd: `# Neon Poster Engine
-
-Procedural **poster generator** with GSAP-driven motion previews and exportable frames.
-
-## What it does
-
-- Generates neon / acid-inspired layouts
-- Lets you scrub through motion states before export
-- Exports stills for print or social
-
-## Ingredients
-
-- GSAP timelines
-- Parametric layout presets
-- High-contrast type experiments`,
-  },
-  {
-    title: "Studio Dashboard",
-    meta: "Web · Data",
-    desc: "A minimal control room interface for monitoring experiments and deployments.",
-    bodyMd: `# Studio Dashboard
-
-A minimal **control room interface** for monitoring experiments and deployments.
-
-## Focus
-
-- Quick at-a-glance status
-- Minimal chrome, strong typography
-- Dark-mode first, with accent signals
-
-## Tech
-
-- React + TypeScript
-- API integrations for metrics & logs
-- Micro-interactions to highlight change`,
-  },
-  {
-    title: "OMAUKOL Index",
-    meta: "Personal · Archive",
-    desc: "Living index of works, notes and visual experiments across code, AI and design.",
-    bodyMd: `# OMAUKOL Index
-
-A living **index of works, notes and visual experiments** across code, AI and design.
-
-## Intent
-
-- Capture fragments instead of polished case studies
-- Link ideas across time
-- Keep the archive lightweight and explorable
-
-## Surfaces
-
-- Short notes
-- Visual experiments
-- Links into larger projects`,
-  },
-];
 
 const THUMB_CLASSES: string[] = [
   "project-card-thumb--one",
@@ -370,131 +36,80 @@ const THUMB_CLASSES: string[] = [
   "project-card-thumb--twenty",
 ];
 
+type CodeProps = {
+  inline?: boolean;
+  className?: string;
+  children?: React.ReactNode;
+};
+
+const CodeBlock = ({ inline, className, children, ...props }: CodeProps) => {
+  const [html, setHtml] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (inline) return;
+
+    const code = String(children ?? "");
+    const match = /language-(\w+)/.exec(className ?? "");
+    const lang = match?.[1] ?? "text";
+
+    let cancelled = false;
+
+    (async () => {
+      try {
+        const fullHtml = await codeToHtml(code, {
+          lang,
+          theme: "slack-dark",
+        });
+
+        if (cancelled) return;
+
+        const innerMatch = fullHtml.match(
+          /<pre[^>]*><code[^>]*>([\s\S]*?)<\/code><\/pre>/i
+        );
+        const inner = innerMatch ? innerMatch[1] : code;
+        setHtml(inner);
+      } catch {
+        if (!cancelled) {
+          setHtml(null);
+        }
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [children, className, inline]);
+
+  if (inline || !html) {
+    return (
+      <code className={className} {...props}>
+        {children}
+      </code>
+    );
+  }
+
+  return (
+    <code
+      className={className}
+      dangerouslySetInnerHTML={{ __html: html }}
+      {...props}
+    />
+  );
+};
+
+const markdownComponents: Components = {
+  code: CodeBlock,
+};
+
 const ProjectsStrip = ({ introReady = true, shellRef }: ProjectsStripProps) => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [activeProject, setActiveProject] = useState<ProjectCard | null>(null);
   const hoverAudioRef = useRef<HTMLAudioElement | null>(null);
   const expandAudioRef = useRef<HTMLAudioElement | null>(null);
 
-  useLayoutEffect(() => {
-    if (!introReady || !sectionRef.current) return;
+  useProjectsStripAnimation(sectionRef, introReady, shellRef, hoverAudioRef);
 
-    const sectionEl = sectionRef.current;
-
-    const ctx = gsap.context(() => {
-      const sectionRoot = sectionEl!;
-      const triggerRoot = shellRef?.current ?? sectionRoot;
-      const cards = sectionRoot.querySelectorAll<HTMLElement>(".project-card");
-      const track = sectionRoot.querySelector<HTMLElement>(
-        ".projects-strip-track"
-      );
-      const planets = sectionRoot.querySelectorAll<SVGCircleElement>(
-        ".projects-orbit-planet"
-      );
-
-      if (cards.length) {
-        gsap.from(cards, {
-          y: () => gsap.utils.random(60, 140),
-          opacity: 0,
-          duration: 1.3,
-          ease: "back.out(1.7)",
-          stagger: {
-            each: 0.12,
-            from: "random",
-          },
-        });
-      }
-
-      // Hover interaction: quick pop up on enter, snap back on leave
-      cards.forEach((card) => {
-        const handleEnter = () => {
-          try {
-            if (!hoverAudioRef.current) {
-              hoverAudioRef.current = new Audio("/clickSmall.mp3");
-              hoverAudioRef.current.volume = 0.3;
-            }
-
-            hoverAudioRef.current.currentTime = 0;
-            hoverAudioRef.current.play().catch(() => {
-              // ignore play errors
-            });
-          } catch {
-            // ignore Audio construction errors
-          }
-
-          gsap.to(card, {
-            y: -18,
-            scale: 1.03,
-            duration: 0.18,
-            ease: "back.out(2.1)",
-          });
-        };
-
-        const handleLeave = () => {
-          gsap.to(card, {
-            y: 0,
-            scale: 1,
-            duration: 0.16,
-            ease: "back.in(1.8)",
-          });
-        };
-
-        card.addEventListener("mouseenter", handleEnter);
-        card.addEventListener("mouseleave", handleLeave);
-      });
-
-      // Scroll-triggered horizontal movement: user scrolls down, track
-      // moves from right to left while section is pinned
-      if (track && triggerRoot) {
-        const cardCount = cards.length || 1;
-        // Make scroll distance scale with how many cards we have so that
-        // when there are many cards, the overall movement feels slower
-        // relative to the user's scroll.
-        const scrollDistance = 900 + cardCount * 50;
-
-        gsap.fromTo(
-          track,
-          { xPercent: 0 },
-          {
-            xPercent: -100,
-            ease: "none",
-            scrollTrigger: {
-              trigger: triggerRoot,
-              start: "top top",
-              end: `+=${scrollDistance}`,
-              scrub: 3,
-              pin: true,
-              onUpdate: (self) => {
-                if (!planets.length) return;
-                const p = self.progress;
-                // 只在最后 40% 的区间里逐渐点亮行星
-                const visible = gsap.utils.clamp(0, 1, (p - 0.6) / 0.4);
-                gsap.to(planets, {
-                  scale: 0.6 + visible * 0.5,
-                  opacity: visible,
-                  duration: 0.25,
-                  ease: "sine.out",
-                });
-              },
-            },
-          }
-        );
-      }
-    }, sectionRef);
-
-    return () => {
-      if (sectionEl) {
-        const cards = sectionEl.querySelectorAll<HTMLElement>(".project-card");
-        cards.forEach((card) => {
-          gsap.killTweensOf(card);
-        });
-      }
-
-      ctx.revert();
-    };
-  }, [introReady, shellRef]);
-
-  // When modal is open, lock background scroll so only the article scrolls
+  // When the modal is open, lock background scroll so only the article scrolls
   useEffect(() => {
     if (!activeProject) return undefined;
 
@@ -666,7 +281,13 @@ const ProjectsStrip = ({ introReady = true, shellRef }: ProjectsStripProps) => {
               </div>
 
               <div className="project-modal-body">
-                <ReactMarkdown>{activeProject.bodyMd}</ReactMarkdown>
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  rehypePlugins={[rehypeRaw]}
+                  components={markdownComponents}
+                >
+                  {activeProject.bodyMd}
+                </ReactMarkdown>
               </div>
             </div>
           </div>
