@@ -41,12 +41,12 @@ const TopNav = forwardRef<HTMLElement, TopNavProps>(
               onClick={onToggleMenu}
             >
               <span className="top-nav-menu-icon">≡</span>
-              <span className="top-nav-menu-label">菜单</span>
+              <span className="top-nav-menu-label">Menu</span>
             </button>
           </div>
 
           <div className="top-nav-center">
-            <span className="top-nav-logo">冷鱼闲风</span>
+            <span className="top-nav-logo">LENGYU XIANFENG</span>
           </div>
 
           <div className="top-nav-right">
@@ -55,16 +55,16 @@ const TopNav = forwardRef<HTMLElement, TopNavProps>(
                 type="button"
                 className="top-nav-pill top-nav-pill-accent"
               >
-                加入
+                Join
               </button>
             </div>
           </div>
 
           <div className="top-nav-ticker">
             <div className="top-nav-ticker-track">
-              冷鱼闲风 · Developer × AI Product × Design · 个人实验场
-              &nbsp;&nbsp; · &nbsp;&nbsp; 冷鱼闲风 · Developer × AI Product ×
-              Design · 个人实验场 &nbsp;&nbsp; · &nbsp;&nbsp;
+              LENGYU XIANFENG · Developer × AI Product × Design · Personal Lab
+              &nbsp;&nbsp; · &nbsp;&nbsp; LENGYU XIANFENG · Developer × AI
+              Product × Design · Personal Lab &nbsp;&nbsp; · &nbsp;&nbsp;
             </div>
           </div>
         </div>
@@ -83,28 +83,28 @@ const TopNav = forwardRef<HTMLElement, TopNavProps>(
               className="top-nav-dropdown-item"
               onClick={() => handleSelect("#projects")}
             >
-              作品集 · Projects
+              Portfolio · Projects
             </button>
             <button
               type="button"
               className="top-nav-dropdown-item"
               onClick={() => handleSelect("#about")}
             >
-              关于我 · About
+              About Me · About
             </button>
             <button
               type="button"
               className="top-nav-dropdown-item"
               onClick={() => handleSelect("#notes")}
             >
-              博客 / 记录 · Notes
+              Blog / Notes · Notes
             </button>
             <button
               type="button"
               className="top-nav-dropdown-item"
               onClick={() => handleSelect("#contact")}
             >
-              联系方式 · Contact
+              Contact · Contact
             </button>
           </div>
         )}

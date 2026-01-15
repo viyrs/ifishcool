@@ -27,7 +27,7 @@ a[href],
 }
 ::selection {
   background: #b6ff2b;
-  color: #050505; /* 让文字在酸性绿色背景上更清晰 */
+  color: #050505; /* Keep text readable on the neon green background */
 }
 /* Global scrollbar styling - thin neon rail */
 body::-webkit-scrollbar {
@@ -189,7 +189,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .intro-gate--closing {
-  /* longer, softer fade out for the whole overlay */
+  /* Longer, softer fade out for the whole overlay */
   animation: intro-gate-out 1.4s ease-in-out both;
 }
 
@@ -199,7 +199,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .intro-gate--closing .intro-gate-title-part--left {
-  /* title parts glide back to center with strong ease-out */
+  /* Title parts glide back to center with strong ease-out */
   animation: intro-title-close-left 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
