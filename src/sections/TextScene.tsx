@@ -27,7 +27,7 @@ const TextScene = () => {
         {
           opacity: 1,
           y: 0,
-          //  rotation: () => gsap.utils.random(-3, 3),
+          rotation: () => gsap.utils.random(-3, 3),
           duration: 0.6,
           ease: 'back.out(2)',
           stagger: 0.08,
