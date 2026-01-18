@@ -93,15 +93,9 @@ const MarkdownBody = ({ bodyMd }: MarkdownBodyProps) => {
   );
 };
 
-type ProjectCardWithMd = ProjectCard & {
-  bodyMd?: string;
-};
-
 const ProjectsStrip = ({ introReady = true, shellRef }: ProjectsStripProps) => {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const [activeProject, setActiveProject] = useState<ProjectCardWithMd | null>(
-    null
-  );
+  const [activeProject, setActiveProject] = useState<ProjectCard | null>(null);
   const hoverAudioRef = useRef<HTMLAudioElement | null>(null);
   const expandAudioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -173,19 +167,7 @@ const ProjectsStrip = ({ introReady = true, shellRef }: ProjectsStripProps) => {
       // ignore Audio construction errors
     }
 
-    // First open modal with a loading state (no bodyMd yet)
-    setActiveProject({ ...project, bodyMd: undefined });
-
-    // Then load markdown for this project on demand
-    // NOTE: mdPath should be the base filename without extension, e.g. 'abc copy'
-    (async () => {
-      try {
-        const md = await import(`../assets/docs/${project.mdPath}.md?raw`);
-        setActiveProject({ ...project, bodyMd: md.default });
-      } catch {
-        setActiveProject({ ...project, bodyMd: '# Failed to load content' });
-      }
-    })();
+    setActiveProject(project);
   };
 
   // Animate timeline row entrance: slide in from right
@@ -274,10 +256,7 @@ const ProjectsStrip = ({ introReady = true, shellRef }: ProjectsStripProps) => {
                 index === 0 ||
                 project.timeline !== sortedProjects[index - 1].timeline;
               return (
-                <div
-                  key={`timeline-${index}`}
-                  className='projects-timeline-item'
-                >
+                <div key={project.timeline} className='projects-timeline-item'>
                   {showDot && <span className='projects-timeline-dot' />}
                   {showDot && (
                     <span className='projects-timeline-date'>
@@ -360,13 +339,7 @@ const ProjectsStrip = ({ introReady = true, shellRef }: ProjectsStripProps) => {
               </div>
 
               <div className='project-modal-body'>
-                {activeProject?.bodyMd ? (
-                  <MarkdownBody bodyMd={activeProject.bodyMd} />
-                ) : (
-                  <p style={{ opacity: 0.8, fontSize: '0.9rem' }}>
-                    正在加载文章资源中…
-                  </p>
-                )}
+                <MarkdownBody bodyMd={activeProject.bodyMd} />
               </div>
             </div>
           </div>
