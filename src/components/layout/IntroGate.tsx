@@ -34,13 +34,13 @@ const IntroGate: React.FC<IntroGateProps> = ({
       }`}
     >
       <div className='intro-gate-inner'>
-        <p className='intro-gate-label'>PORTFOLIO / OMAUKOL</p>
+        <p className='intro-gate-label'>BLOG / AI</p>
         <h1 className='intro-gate-title'>
           <span className='intro-gate-title-part intro-gate-title-part--left'>
-            OMA
+            IFISH
           </span>
           <span className='intro-gate-title-part intro-gate-title-part--right'>
-            KOL
+            COOL
           </span>
         </h1>
         <p className='intro-gate-sub'>DEV · AI PRODUCT · DESIGN</p>
@@ -55,9 +55,11 @@ const IntroGate: React.FC<IntroGateProps> = ({
           <button
             type='button'
             className='intro-gate-button intro-gate-button--secondary'
-            onClick={handleEnterClick}
+            onClick={() => {
+              window.open('https://github.com/viyrs/ifishcool');
+            }}
           >
-            Just browse
+            Github
           </button>
         </div>
       </div>

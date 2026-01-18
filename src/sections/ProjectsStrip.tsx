@@ -109,6 +109,29 @@ const ProjectsStrip = ({ introReady = true, shellRef }: ProjectsStripProps) => {
     setActiveProject(project);
   };
 
+  // Open project modal when a search result in Hero is clicked
+  useEffect(() => {
+    const handler = (event: Event) => {
+      const custom = event as CustomEvent<string>;
+      const docPath = custom.detail;
+      if (!docPath) return;
+
+      const project = PROJECT_CARDS.find((p) => p.docPath === docPath);
+      if (project) {
+        handleCardClick(project);
+      }
+    };
+
+    window.addEventListener('open-project-from-hero', handler as EventListener);
+
+    return () => {
+      window.removeEventListener(
+        'open-project-from-hero',
+        handler as EventListener
+      );
+    };
+  }, []);
+
   // Animate timeline row entrance: slide in from right
   useEffect(() => {
     if (!sectionRef.current || !introReady) return;
