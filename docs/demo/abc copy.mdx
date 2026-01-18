@@ -1,0 +1,235 @@
+---
+title: ArenaPro 2
+meta: Docs · Demo2
+desc: 欢迎来到 ArenaPro React 示例文档。2
+timeline: 2024.03
+---
+
+import React from 'react';
+import counterStyles from '../styles/Counter.module.css';
+import todoStyles from '../styles/TodoList.module.css';
+import colorPickerStyles from '../styles/ColorPicker.module.css';
+
+# 欢迎来到 ArenaPro React
+
+## 什么是 ArenaPro React？
+
+**ArenaPro React 是基于 React 18 定制的、适用于神岛的 React 风格 UI 框架。**
+
+- 在 **心智模型与 API 风格上贴近 React 18**，比如组件、Hooks、声明式 UI 等；
+- 在 **实现层面与运行环境上做了针对神岛引擎的改造与裁剪**，以便更好地适配神岛的 UI 与性能需求。
+
+### ArenaPro React 相对标准 React 的差异大致包括：
+
+- **运行环境不同**  
+  标准 React 主要面向浏览器 DOM 或 Native；  
+  ArenaPro React 面向神岛引擎的 UI 系统和渲染管线。
+
+- **API 与能力有取舍**  
+  我们保留了大部分常用的 React 18 开发模式，同时对在神岛场景下不常用或不适配的部分做了精简与封装。
+
+- **默认实践更贴近游戏创作场景**  
+  在布局方式、组件抽象、性能优化策略等方面，都更加贴合神岛创作的实际项目需求。
+
+## Markdown 列表示例
+
+### 无序列表
+
+- 第一项内容
+- 第二项内容
+  - 嵌套子项 1
+  - 嵌套子项 2
+- 第三项内容
+
+### 有序列表
+
+1. 首先学习基础概念
+2. 然后实践编程
+   1. 编写简单组件
+   2. 添加交互功能
+3. 最后优化性能
+
+### 任务列表
+
+- [x] 完成 MDX 集成
+- [ ] 添加更多示例
+- [ ] 优化性能
+- [ ] 编写文档
+
+## 代码块示例
+
+### JavaScript 代码
+
+```javascript
+// React 函数组件示例
+const MyComponent = ({ name, count }) => {
+  const [localCount, setLocalCount] = useState(count);
+
+  const handleClick = () => {
+    setLocalCount(localCount + 1);
+  };
+
+  return (
+    <div>
+      <h1>Hello, {name}!</h1>
+      <p>Count: {localCount}</p>
+      <button onClick={handleClick}>Increment</button>
+    </div>
+  );
+};
+```
+
+### TypeScript 代码
+
+```typescript
+interface UserProps {
+  name: string;
+  age: number;
+  email?: string;
+}
+
+const UserCard: React.FC<UserProps> = ({ name, age, email }) => {
+  return (
+    <div className="user-card">
+      <h2>{name}</h2>
+      <p>Age: {age}</p>
+      {email && <p>Email: {email}</p>}
+    </div>
+  );
+};
+```
+
+### CSS 代码
+
+```css
+.component-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border-radius: 8px;
+  background: linear-gradient(45deg, #f0f0f0, #ffffff);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.button-primary {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-primary:hover {
+  background-color: #0056b3;
+}
+```
+
+### Shell 命令
+
+```bash
+# 安装依赖
+npm install @mdx-js/react @mdx-js/rollup
+
+# 启动开发服务器
+npm run dev
+
+# 构建项目
+npm run build
+
+# 运行测试
+npm test
+```
+
+## 内联代码示例
+
+在文本中使用 `内联代码` 可以突出显示重要的技术术语，比如 `useState`、`useEffect`、`props` 等。
+
+## 表格示例
+
+| 特性     | React         | ArenaPro React  |
+| -------- | ------------- | --------------- |
+| 运行环境 | 浏览器/Native | 神岛引擎        |
+| API 风格 | React 18      | React 18 定制版 |
+| 性能优化 | 开发者负责    | 引擎层优化      |
+| 组件库   | 生态丰富      | 精简定制        |
+
+## React 组件示例
+
+下面是一个简单的 React 组件示例，展示了如何在 MDX 中嵌入交互式组件：
+
+export const Counter = () => {
+  const [count, setCount] = React.useState(0);
+  return (
+    <div className={counterStyles.counterContainer}>
+      <h3 className={counterStyles.counterTitle}>计数器组件</h3>
+      <p className={counterStyles.counterDisplay}>
+        当前计数: <strong>{count}</strong>
+      </p>
+      <div className={counterStyles.buttonGroup}>
+        <button
+          onClick={() => setCount(count + 1)}
+          className={`${counterStyles.button} ${counterStyles.buttonIncrement}`}
+        >
+          +1
+        </button>
+        <button
+          onClick={() => setCount(count - 1)}
+          className={`${counterStyles.button} ${counterStyles.buttonDecrement}`}
+        >
+          -1
+        </button>
+        <button
+          onClick={() => setCount(0)}
+          className={`${counterStyles.button} ${counterStyles.buttonReset}`}
+        >
+          重置
+        </button>
+      </div>
+    </div>
+  );
+};
+
+<Counter />
+
+## 颜色选择器组件
+
+export const ColorPicker = () => {
+  const [selectedColor, setSelectedColor] = React.useState('#58a6ff');
+  const colors = ['#58a6ff', '#28a745', '#dc3545', '#ffc107', '#6f42c1', '#fd7e14'];
+
+return (
+<div className={colorPickerStyles.colorPickerContainer}>
+<h3 className={colorPickerStyles.colorPickerTitle}>🎨 颜色选择器</h3>
+<div className={colorPickerStyles.colorDisplay} style={{ backgroundColor: selectedColor }}></div>
+<div className={colorPickerStyles.colorOptions}>
+{colors.map(color => (
+<button
+key={color}
+onClick={() => setSelectedColor(color)}
+className={`${colorPickerStyles.colorButton} ${selectedColor === color ? colorPickerStyles.selected : ''}`}
+style={{ backgroundColor: color }}
+/>
+))}
+</div>
+<div className={colorPickerStyles.colorValue}>
+当前颜色: {selectedColor}
+</div>
+</div>
+);
+};
+
+<ColorPicker />
+
+## 特性展示
+
+这个示例展示了 MDX 的强大功能：
+
+1. **组件嵌入**: 可以直接在 Markdown 中嵌入 React 组件
+2. **状态管理**: 组件可以有自己的状态（如计数器的 count）
+3. **事件处理**: 支持点击事件等交互
+4. **样式定义**: 可以使用内联样式或 CSS 类
+
+这就是 MDX 相比普通 Markdown 的优势 - 让文档变得生动和交互式！

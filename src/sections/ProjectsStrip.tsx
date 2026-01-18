@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState, useMemo, type RefObject } from 'react';
 import { gsap } from 'gsap';
-import type { Options as ReactMarkdownOptions } from 'react-markdown';
 
-import { PROJECT_CARDS, type ProjectCard } from '@vy/config/projects';
+import { mdxFiles, PROJECT_CARDS, type ProjectCard } from '@vy/config/projects';
 import { useProjectsStripAnimation } from '@vy/hooks/useProjectsStripAnimation';
 
 type ProjectsStripProps = {
@@ -32,66 +31,6 @@ const THUMB_CLASSES: string[] = [
   'project-card-thumb--nineteen',
   'project-card-thumb--twenty',
 ];
-
-type MarkdownBodyProps = {
-  bodyMd: string;
-};
-
-const MarkdownBody = ({ bodyMd }: MarkdownBodyProps) => {
-  const [MarkdownComponent, setMarkdownComponent] =
-    useState<React.ComponentType<ReactMarkdownOptions> | null>(null);
-  const [remarkPlugins, setRemarkPlugins] =
-    useState<ReactMarkdownOptions['remarkPlugins']>();
-  const [rehypePlugins, setRehypePlugins] =
-    useState<ReactMarkdownOptions['rehypePlugins']>();
-
-  useEffect(() => {
-    let cancelled = false;
-
-    (async () => {
-      try {
-        const [
-          { default: ReactMarkdown },
-          { default: remarkGfm },
-          { default: rehypeHighlight },
-        ] = await Promise.all([
-          import('react-markdown'),
-          import('remark-gfm'),
-          import('rehype-highlight'),
-        ]);
-
-        if (cancelled) return;
-
-        setMarkdownComponent(() => ReactMarkdown);
-        setRemarkPlugins([remarkGfm]);
-        setRehypePlugins([rehypeHighlight]);
-      } catch {
-        if (!cancelled) {
-          setMarkdownComponent(() => null);
-          setRemarkPlugins(undefined);
-          setRehypePlugins(undefined);
-        }
-      }
-    })();
-
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  if (!MarkdownComponent) {
-    return null;
-  }
-
-  return (
-    <MarkdownComponent
-      remarkPlugins={remarkPlugins}
-      rehypePlugins={rehypePlugins}
-    >
-      {bodyMd}
-    </MarkdownComponent>
-  );
-};
 
 const ProjectsStrip = ({ introReady = true, shellRef }: ProjectsStripProps) => {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -339,7 +278,12 @@ const ProjectsStrip = ({ introReady = true, shellRef }: ProjectsStripProps) => {
               </div>
 
               <div className='project-modal-body'>
-                <MarkdownBody bodyMd={activeProject.bodyMd} />
+                {activeProject.docPath &&
+                  mdxFiles[activeProject.docPath] &&
+                  (() => {
+                    const MdxComp = mdxFiles[activeProject.docPath].default;
+                    return <MdxComp />;
+                  })()}
               </div>
             </div>
           </div>

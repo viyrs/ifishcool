@@ -1,0 +1,291 @@
+---
+title: Ar2
+meta: Docs ·2
+desc: 欢迎来到 Are2
+timeline: 2024.04
+---
+
+import React from 'react';
+
+# 欢迎来到 ArenaPro React
+
+## 什么是 ArenaPro React？
+
+**ArenaPro React 是基于 React 18 定制的、适用于神岛的 React 风格 UI 框架。**
+
+- 在 **心智模型与 API 风格上贴近 React 18**，比如组件、Hooks、声明式 UI 等；
+- 在 **实现层面与运行环境上做了针对神岛引擎的改造与裁剪**，以便更好地适配神岛的 UI 与性能需求。
+
+### ArenaPro React 相对标准 React 的差异大致包括：
+
+- **运行环境不同**  
+  标准 React 主要面向浏览器 DOM 或 Native；  
+  ArenaPro React 面向神岛引擎的 UI 系统和渲染管线。
+
+- **API 与能力有取舍**  
+  我们保留了大部分常用的 React 18 开发模式，同时对在神岛场景下不常用或不适配的部分做了精简与封装。
+
+- **默认实践更贴近游戏创作场景**  
+  在布局方式、组件抽象、性能优化策略等方面，都更加贴合神岛创作的实际项目需求。
+
+## React 组件示例
+
+下面是一个简单的 React 组件示例，展示了如何在 MDX 中嵌入交互式组件：
+
+export const Counter = () => {
+  const [count, setCount] = React.useState(0);
+  return (
+    <div
+      style={{
+        padding: '20px',
+        border: '2px solid #ddd',
+        borderRadius: '8px',
+        backgroundColor: '#f9f9f9',
+        textAlign: 'center',
+      }}
+    >
+      <h3>计数器组件</h3>
+      <p>
+        当前计数: <strong>{count}</strong>
+      </p>
+      <button
+        onClick={() => setCount(count + 1)}
+        style={{
+          padding: '8px 16px',
+          margin: '0 5px',
+          backgroundColor: '#007bff',
+          color: 'white',
+          border: 'none',
+          borderRadius: '4px',
+          cursor: 'pointer',
+        }}
+      >
+        +1
+      </button>
+      <button
+        onClick={() => setCount(count - 1)}
+        style={{
+          padding: '8px 16px',
+          margin: '0 5px',
+          backgroundColor: '#dc3545',
+          color: 'white',
+          border: 'none',
+          borderRadius: '4px',
+          cursor: 'pointer',
+        }}
+      >
+        -1
+      </button>
+      <button
+        onClick={() => setCount(0)}
+        style={{
+          padding: '8px 16px',
+          margin: '0 5px',
+          backgroundColor: '#6c757d',
+          color: 'white',
+          border: 'none',
+          borderRadius: '4px',
+          cursor: 'pointer',
+        }}
+      >
+        重置
+      </button>
+    </div>
+  );
+};
+
+<Counter />
+
+## 特性展示
+
+这个示例展示了 MDX 的强大功能：
+
+1. **组件嵌入**: 可以直接在 Markdown 中嵌入 React 组件
+2. **状态管理**: 组件可以有自己的状态（如计数器的 count）
+3. **事件处理**: 支持点击事件等交互
+4. **样式定义**: 可以使用内联样式或 CSS 类
+
+## 高级 React 示例
+
+### Todo List 组件
+
+下面是一个更复杂的 Todo List 组件，展示了更多的 React 特性：
+
+export const TodoList = () => {
+  const [todos, setTodos] = React.useState([
+    { id: 1, text: '学习 MDX', completed: false },
+    { id: 2, text: '创建 React 组件', completed: true },
+    { id: 3, text: '编写文档', completed: false }
+  ]);
+  const [inputValue, setInputValue] = React.useState('');
+
+const addTodo = () => {
+if (inputValue.trim()) {
+setTodos([...todos, {
+id: Date.now(),
+text: inputValue,
+completed: false
+}]);
+setInputValue('');
+}
+};
+
+const toggleTodo = (id) => {
+setTodos(todos.map(todo =>
+todo.id === id ? { ...todo, completed: !todo.completed } : todo
+));
+};
+
+const deleteTodo = (id) => {
+setTodos(todos.filter(todo => todo.id !== id));
+};
+
+return (
+
+<div style={{
+      padding: '20px',
+      border: '2px solid #007bff',
+      borderRadius: '8px',
+      backgroundColor: '#f8f9fa',
+      maxWidth: '500px',
+      margin: '20px 0'
+    }}>
+<h3>📝 Todo List</h3>
+
+      <div style={{ marginBottom: '15px' }}>
+        <input
+          type="text"
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          onKeyPress={(e) => e.key === 'Enter' && addTodo()}
+          placeholder="添加新任务..."
+          style={{
+            padding: '8px',
+            marginRight: '10px',
+            border: '1px solid #ddd',
+            borderRadius: '4px',
+            width: '200px'
+          }}
+        />
+        <button
+          onClick={addTodo}
+          style={{
+            padding: '8px 16px',
+            backgroundColor: '#28a745',
+            color: 'white',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: 'pointer'
+          }}
+        >
+          添加
+        </button>
+      </div>
+
+      <ul style={{ listStyle: 'none', padding: 0 }}>
+        {todos.map(todo => (
+          <li key={todo.id} style={{
+            display: 'flex',
+            alignItems: 'center',
+            padding: '8px',
+            margin: '5px 0',
+            backgroundColor: todo.completed ? '#e9ecef' : 'white',
+            borderRadius: '4px',
+            textDecoration: todo.completed ? 'line-through' : 'none'
+          }}>
+            <input
+              type="checkbox"
+              checked={todo.completed}
+              onChange={() => toggleTodo(todo.id)}
+              style={{ marginRight: '10px' }}
+            />
+            <span style={{ flex: 1 }}>{todo.text}</span>
+            <button
+              onClick={() => deleteTodo(todo.id)}
+              style={{
+                padding: '4px 8px',
+                backgroundColor: '#dc3545',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                cursor: 'pointer',
+                fontSize: '12px'
+              }}
+            >
+              删除
+            </button>
+          </li>
+        ))}
+      </ul>
+
+      <div style={{ marginTop: '15px', fontSize: '14px', color: '#666' }}>
+        总计: {todos.length} | 已完成: {todos.filter(t => t.completed).length}
+      </div>
+    </div>
+
+);
+};
+
+<TodoList />
+
+### 颜色选择器组件
+
+export const ColorPicker = () => {
+  const [selectedColor, setSelectedColor] = React.useState('#007bff');
+  const colors = ['#007bff', '#28a745', '#dc3545', '#ffc107', '#6f42c1', '#fd7e14'];
+
+return (
+
+<div style={{
+      padding: '20px',
+      border: '2px solid #ddd',
+      borderRadius: '8px',
+      backgroundColor: 'white',
+      textAlign: 'center'
+    }}>
+<h3>🎨 颜色选择器</h3>
+<div style={{
+        width: '100px',
+        height: '100px',
+        backgroundColor: selectedColor,
+        margin: '20px auto',
+        borderRadius: '8px',
+        border: '2px solid #ddd'
+      }}></div>
+<div style={{ display: 'flex', justifyContent: 'center', gap: '10px', flexWrap: 'wrap' }}>
+{colors.map(color => (
+<button
+key={color}
+onClick={() => setSelectedColor(color)}
+style={{
+              width: '40px',
+              height: '40px',
+              backgroundColor: color,
+              border: selectedColor === color ? '3px solid #333' : '1px solid #ddd',
+              borderRadius: '50%',
+              cursor: 'pointer'
+            }}
+/>
+))}
+</div>
+<p style={{ marginTop: '15px', fontFamily: 'monospace' }}>
+当前颜色: {selectedColor}
+</p>
+</div>
+);
+};
+
+<ColorPicker />
+
+## 总结
+
+这些示例展示了 MDX 的强大功能：
+
+1. **组件嵌入**: 可以直接在 Markdown 中嵌入 React 组件
+2. **状态管理**: 组件可以有自己的状态（如计数器的 count）
+3. **事件处理**: 支持点击事件等交互
+4. **样式定义**: 可以使用内联样式或 CSS 类
+5. **复杂交互**: Todo List 展示了表单处理、列表操作等
+6. **动态渲染**: 颜色选择器展示了动态样式更新
+
+这就是 MDX 相比普通 Markdown 的优势 - 让文档变得生动和交互式！
