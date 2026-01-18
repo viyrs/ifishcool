@@ -174,9 +174,10 @@ const ProjectsStrip = ({ introReady = true, shellRef }: ProjectsStripProps) => {
     }
 
     // Load markdown for this project on demand when card is clicked
+    // NOTE: mdPath should be the base filename without extension, e.g. 'abc copy'
     (async () => {
       try {
-        const md = await import(`../assets/docs/${project.mdPath}?raw`);
+        const md = await import(`../assets/docs/${project.mdPath}.md?raw`);
         setActiveProject({ ...project, bodyMd: md.default });
       } catch {
         setActiveProject({ ...project, bodyMd: '# Failed to load content' });

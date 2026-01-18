@@ -3,7 +3,10 @@ export type ProjectCard = {
   meta: string;
   desc: string;
   mdPath: string;
-  timeline: string; // e.g. '2024.03', '2023.11'
+  /**
+   * e.g. '2024.03', '2023.11'
+   */
+  timeline: string;
 };
 
 export const PROJECT_CARDS: ProjectCard[] = [
@@ -11,28 +14,28 @@ export const PROJECT_CARDS: ProjectCard[] = [
     title: 'Generative Sketchpad',
     meta: 'AI · Product · Frontend',
     desc: 'Real-time canvas for exploring model-assisted drawing and interaction patterns.',
-    mdPath: 'abc.md',
+    mdPath: 'abc',
     timeline: '2024.03',
   },
   {
     title: 'Generative Sketchpad22223',
     meta: 'AI · Product · Frontend',
     desc: 'Real-time canvas for exploring model-assisted drawing and interaction patterns.',
-    mdPath: 'abc copy.md',
+    mdPath: 'abc copy',
     timeline: '2023.11',
   },
   {
     title: 'Generative Sketchpad',
     meta: 'AI · Product · Frontend',
     desc: 'Real-time canvas for exploring model-assisted drawing and interaction patterns.',
-    mdPath: 'abc.md',
+    mdPath: 'abc',
     timeline: '2023.09',
   },
   {
     title: 'Generative Sketchpad22',
     meta: 'AI · Product · Frontend',
     desc: 'Real-time canvas for exploring model-assisted drawing and interaction patterns.',
-    mdPath: 'abc copy.md',
+    mdPath: 'abc copy',
     timeline: '2023.06',
   },
   {
@@ -46,7 +49,7 @@ export const PROJECT_CARDS: ProjectCard[] = [
     title: 'Generative Sketchpad',
     meta: 'AI · Product · Frontend',
     desc: 'Real-time canvas for exploring model-assisted drawing and interaction patterns.',
-    mdPath: 'abc.md',
+    mdPath: 'abc',
     timeline: '2022.12',
   },
   {
@@ -60,21 +63,21 @@ export const PROJECT_CARDS: ProjectCard[] = [
     title: 'Generative Sketchpad',
     meta: 'AI · Product · Frontend',
     desc: 'Real-time canvas for exploring model-assisted drawing and interaction patterns.',
-    mdPath: 'abc.md',
+    mdPath: 'abc',
     timeline: '2022.06',
   },
   {
     title: 'Generative Sketchpad',
     meta: 'AI · Product · Frontend',
     desc: 'Real-time canvas for exploring model-assisted drawing and interaction patterns.',
-    mdPath: 'abc.md',
+    mdPath: 'abc',
     timeline: '2023.09',
   },
   {
     title: 'Generative Sketchpad',
     meta: 'AI · Product · Frontend',
     desc: 'Real-time canvas for exploring model-assisted drawing and interaction patterns.',
-    mdPath: 'abc.md',
+    mdPath: 'abc',
     timeline: '2023.06',
   },
   {
@@ -88,21 +91,21 @@ export const PROJECT_CARDS: ProjectCard[] = [
     title: 'Generative Sketchpad',
     meta: 'AI · Product · Frontend',
     desc: 'Real-time canvas for exploring model-assisted drawing and interaction patterns.',
-    mdPath: 'abc.md',
+    mdPath: 'abc',
     timeline: '2022.12',
   },
   {
     title: 'Generative Sketchpad',
     meta: 'AI · Product · Frontend',
     desc: 'Real-time canvas for exploring model-assisted drawing and interaction patterns.',
-    mdPath: 'abc.md',
+    mdPath: 'abc',
     timeline: '2022.09',
   },
   {
     title: 'Generative Sketchpad',
     meta: 'AI · Product · Frontend',
     desc: 'Real-time canvas for exploring model-assisted drawing and interaction patterns.',
-    mdPath: 'abc.md',
+    mdPath: 'abc',
     timeline: '2022.06',
   },
 ];
