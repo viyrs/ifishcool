@@ -93,9 +93,15 @@ const MarkdownBody = ({ bodyMd }: MarkdownBodyProps) => {
   );
 };
 
+type ProjectCardWithMd = ProjectCard & {
+  bodyMd?: string;
+};
+
 const ProjectsStrip = ({ introReady = true, shellRef }: ProjectsStripProps) => {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const [activeProject, setActiveProject] = useState<ProjectCard | null>(null);
+  const [activeProject, setActiveProject] = useState<ProjectCardWithMd | null>(
+    null
+  );
   const hoverAudioRef = useRef<HTMLAudioElement | null>(null);
   const expandAudioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -167,7 +173,15 @@ const ProjectsStrip = ({ introReady = true, shellRef }: ProjectsStripProps) => {
       // ignore Audio construction errors
     }
 
-    setActiveProject(project);
+    // Load markdown for this project on demand when card is clicked
+    (async () => {
+      try {
+        const md = await import(`../assets/docs/${project.mdPath}?raw`);
+        setActiveProject({ ...project, bodyMd: md.default });
+      } catch {
+        setActiveProject({ ...project, bodyMd: '# Failed to load content' });
+      }
+    })();
   };
 
   // Animate timeline row entrance: slide in from right
@@ -256,7 +270,10 @@ const ProjectsStrip = ({ introReady = true, shellRef }: ProjectsStripProps) => {
                 index === 0 ||
                 project.timeline !== sortedProjects[index - 1].timeline;
               return (
-                <div key={project.timeline} className='projects-timeline-item'>
+                <div
+                  key={`timeline-${index}`}
+                  className='projects-timeline-item'
+                >
                   {showDot && <span className='projects-timeline-dot' />}
                   {showDot && (
                     <span className='projects-timeline-date'>
@@ -339,7 +356,9 @@ const ProjectsStrip = ({ introReady = true, shellRef }: ProjectsStripProps) => {
               </div>
 
               <div className='project-modal-body'>
-                <MarkdownBody bodyMd={activeProject.bodyMd} />
+                <MarkdownBody
+                  bodyMd={activeProject?.bodyMd || '# No content available'}
+                />
               </div>
             </div>
           </div>
