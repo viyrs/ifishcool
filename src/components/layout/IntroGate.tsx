@@ -56,7 +56,7 @@ const IntroGate: React.FC<IntroGateProps> = ({
             type='button'
             className='intro-gate-button intro-gate-button--secondary'
             onClick={() => {
-              window.open('https://github.com/viyrs/ifishcool');
+              window.open('https://github.com/ifishcool/blog');
             }}
           >
             Github

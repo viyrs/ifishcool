@@ -75,7 +75,7 @@ const BigFooter = () => {
                 type='button'
                 aria-label='GitHub'
                 onClick={() => {
-                  window.open('https://github.com/viyrs');
+                  window.open('https://github.com/ifishcool');
                 }}
               >
                 <svg
@@ -94,7 +94,7 @@ const BigFooter = () => {
                 type='button'
                 aria-label='Gitee'
                 onClick={() => {
-                  window.open('https://gitee.com/viyrs');
+                  window.open('https://gitee.com/ifishcool');
                 }}
               >
                 <svg
