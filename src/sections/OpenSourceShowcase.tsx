@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { gsap } from 'gsap';
-import { OSS_REPOS, type OpenSourceRepoCard } from '@vy/config/openSource';
-import { useOpenSourceShowcaseAnimation } from '@vy/hooks/useOpenSourceShowcaseAnimation';
+import { OSS_REPOS, type OpenSourceRepoCard } from '@ifc/config/openSource';
+import { useOpenSourceShowcaseAnimation } from '@ifc/hooks/useOpenSourceShowcaseAnimation';
 
 const OSS_PAGE_SIZE = 3;
 const OSS_TOTAL_PAGES = Math.ceil(OSS_REPOS.length / OSS_PAGE_SIZE);

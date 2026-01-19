@@ -1,8 +1,12 @@
 import { useEffect, useRef, useState, useMemo, type RefObject } from 'react';
 import { gsap } from 'gsap';
 
-import { mdxFiles, PROJECT_CARDS, type ProjectCard } from '@vy/config/projects';
-import { useProjectsStripAnimation } from '@vy/hooks/useProjectsStripAnimation';
+import {
+  mdxFiles,
+  PROJECT_CARDS,
+  type ProjectCard,
+} from '@ifc/config/projects';
+import { useProjectsStripAnimation } from '@ifc/hooks/useProjectsStripAnimation';
 
 type ProjectsStripProps = {
   introReady?: boolean;

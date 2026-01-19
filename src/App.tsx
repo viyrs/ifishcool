@@ -1,18 +1,18 @@
 import { Suspense, lazy, useRef } from 'react';
-import '@vy/App.css';
-import Hero from '@vy/sections/Hero';
-import IntroGate from '@vy/components/layout/IntroGate';
-import TopNav from '@vy/components/layout/TopNav';
-import { useIntroGate } from '@vy/hooks/useIntroGate';
-import { useTopNavMenu } from '@vy/hooks/useTopNavMenu';
-import { useSmoothScroll } from '@vy/hooks/useSmoothScroll';
+import '@ifc/App.css';
+import Hero from '@ifc/sections/Hero';
+import IntroGate from '@ifc/components/layout/IntroGate';
+import TopNav from '@ifc/components/layout/TopNav';
+import { useIntroGate } from '@ifc/hooks/useIntroGate';
+import { useTopNavMenu } from '@ifc/hooks/useTopNavMenu';
+import { useSmoothScroll } from '@ifc/hooks/useSmoothScroll';
 
-const ProjectsStrip = lazy(() => import('@vy/sections/ProjectsStrip'));
-const TextScene = lazy(() => import('@vy/sections/TextScene'));
+const ProjectsStrip = lazy(() => import('@ifc/sections/ProjectsStrip'));
+const TextScene = lazy(() => import('@ifc/sections/TextScene'));
 const OpenSourceShowcase = lazy(
-  () => import('@vy/sections/OpenSourceShowcase')
+  () => import('@ifc/sections/OpenSourceShowcase')
 );
-const BigFooter = lazy(() => import('@vy/sections/BigFooter'));
+const BigFooter = lazy(() => import('@ifc/sections/BigFooter'));
 
 function App() {
   const headerRef = useRef<HTMLElement | null>(null);

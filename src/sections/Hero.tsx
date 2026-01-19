@@ -1,6 +1,6 @@
 import { useRef, useState, useMemo } from 'react';
-import { useHeroAnimation } from '@vy/hooks/useHeroAnimation';
-import { PROJECT_CARDS, type ProjectCard } from '@vy/config/projects';
+import { useHeroAnimation } from '@ifc/hooks/useHeroAnimation';
+import { PROJECT_CARDS, type ProjectCard } from '@ifc/config/projects';
 
 type HeroProps = {
   introReady?: boolean;
