@@ -5,9 +5,40 @@
     <link rel="icon" type="image/svg+xml" href="/logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>冷鱼闲风 - IFishCool</title>
+    <style>
+      #ifc-initial-loader {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #050505;
+        color: #e5e7eb;
+        font-family:
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          'SF Pro Text',
+          Helvetica,
+          Arial,
+          sans-serif;
+        z-index: 0;
+      }
+
+      #ifc-initial-loader-text {
+        font-size: 0.8rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        opacity: 0.85;
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div id="ifc-initial-loader">
+        <div id="ifc-initial-loader-text">IFISHCOOL · LOADING...</div>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
