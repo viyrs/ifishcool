@@ -1,18 +1,15 @@
-import { Suspense, lazy, useRef } from 'react';
+import { Suspense, useRef } from 'react';
 import '@ifc/App.css';
 import Hero from '@ifc/sections/Hero';
 import IntroGate from '@ifc/components/layout/IntroGate';
 import TopNav from '@ifc/components/layout/TopNav';
+import ProjectsStrip from '@ifc/sections/ProjectsStrip';
+import TextScene from '@ifc/sections/TextScene';
+import OpenSourceShowcase from '@ifc/sections/OpenSourceShowcase';
+import BigFooter from '@ifc/sections/BigFooter';
 import { useIntroGate } from '@ifc/hooks/useIntroGate';
 import { useTopNavMenu } from '@ifc/hooks/useTopNavMenu';
 import { useSmoothScroll } from '@ifc/hooks/useSmoothScroll';
-
-const ProjectsStrip = lazy(() => import('@ifc/sections/ProjectsStrip'));
-const TextScene = lazy(() => import('@ifc/sections/TextScene'));
-const OpenSourceShowcase = lazy(
-  () => import('@ifc/sections/OpenSourceShowcase')
-);
-const BigFooter = lazy(() => import('@ifc/sections/BigFooter'));
 
 function App() {
   const headerRef = useRef<HTMLElement | null>(null);
