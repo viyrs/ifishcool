@@ -58,7 +58,7 @@
 .project-modal-title {
   font-size: 1.4rem;
   letter-spacing: 0.18em;
-  text-transform: uppercase;
+
   color: #f9fafb;
 }
 
@@ -144,34 +144,6 @@
 
 .project-modal-body h1::before {
   top: 0.3rem;
-}
-
-.project-modal-body h1 {
-  font-size: 2.5rem;
-}
-
-.project-modal-body h2 {
-  font-size: 2rem;
-}
-
-.project-modal-body h3 {
-  font-size: 1.5rem;
-}
-
-.project-modal-body h4 {
-  font-size: 1rem;
-}
-
-.project-modal-body h5 {
-  font-size: 0.7rem;
-}
-
-.project-modal-body h6 {
-  font-size: 0.5rem;
-}
-
-.project-modal-body p {
-  margin: 0.35rem 0;
 }
 
 .project-modal-body a {
@@ -261,7 +233,7 @@
 }
 
 .project-modal-body img {
-  max-width: 100%;
+  max-width: 380px;
   border-radius: 12px;
   margin: 0.7rem 0;
   display: block;
@@ -354,34 +326,12 @@
   flex-shrink: 0;
 }
 
-.project-card-thumb {
-  width: 100%;
-  height: 110px;
-  border-radius: 14px;
-  margin-bottom: 0.9rem;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  overflow: hidden;
-}
-
-/*!
-  Theme: GitHub Dark
-  Description: Dark theme as seen on github.com
-  Author: github.com
-  Maintainer: @Hirse
-  Updated: 2021-05-15
-
-  Outdated base version: https://github.com/primer/github-syntax-dark
-  Current colors taken from GitHub's CSS
-*/
-
 .hljs {
   color: #c9d1d9;
   background: #0d1117;
 }
 
-.hljs-doctag,
+.hljs-dicta,
 .hljs-keyword,
 .hljs-meta .hljs-keyword,
 .hljs-template-tag,

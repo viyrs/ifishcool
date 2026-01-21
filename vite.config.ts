@@ -18,7 +18,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@docs': fileURLToPath(new URL('./docs', import.meta.url)),
+      '@docs': fileURLToPath(new URL('./public/docs', import.meta.url)),
       '@ifc': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },

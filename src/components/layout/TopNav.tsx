@@ -63,9 +63,9 @@ const TopNav = forwardRef<HTMLElement, TopNavProps>(
 
           <div className='top-nav-ticker'>
             <div className='top-nav-ticker-track'>
-              LENGYU XIANFENG · Developer × AI Product × Design · Personal Lab
-              &nbsp;&nbsp; · &nbsp;&nbsp; LENGYU XIANFENG · Developer × AI
-              Product × Design · Personal Lab &nbsp;&nbsp; · &nbsp;&nbsp;
+              冷鱼闲风 · Developer × AI Product × Design · Personal Lab
+              &nbsp;&nbsp; · &nbsp;&nbsp; 冷鱼闲风 · Developer × AI Product ×
+              Design · Personal Lab &nbsp;&nbsp; · &nbsp;&nbsp;
             </div>
           </div>
         </div>

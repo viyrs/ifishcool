@@ -207,6 +207,7 @@
 .hero-content {
   width: 100%;
   max-width: 1200px;
+  min-height: 410px;
 }
 
 .hero-title-block {
