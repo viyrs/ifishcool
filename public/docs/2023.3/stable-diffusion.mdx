@@ -1,0 +1,101 @@
+---
+title: Stable Diffusion 初尝试
+meta: 文生图 · AI 绘画 · Prompt 设计
+desc: 从零开始折腾 Stable Diffusion，本地部署 + 提示词调教。
+timeline: 2023.03
+---
+
+我第一次接触 Stable Diffusion，是在朋友圈刷的插画。
+
+下面的说明写着：**“只用了一段提示词，几秒钟生成。”**
+
+作为一个平时要画图的人，我的第一反应是：
+
+> 如果它真的这么好用，那我是不是可以少熬很多夜？
+
+起初我只是抱着玩玩的心态，在网上找了一个本地部署仓库。
+
+那时候，我没看到傻瓜式部署程序，而是直接通过 **Automatic1111 Web UI**教程部署，过程极其艰难，前前后后部署2个小时才成功。
+
+- 要安装合适版本的 Python
+- 要配置 CUDA / GPU 驱动
+- 要下载基础模型（动辄几个 GB）
+- 还会遇到各种莫名其妙的报错
+
+![](https://cdn-community.bcmcdn.com/47/community/nx9iQ71ks7C3hb11jZ7vtWDceLzQVCpaVe4fk4rnbUdj.png?hash=FtVZL1-ajUz-RkXDaVeNJFlVvFgF)
+
+有一阵子，我的终端窗口里全是红色的报错信息。  
+好在社区的文档和 Issue 足够丰富，一点点对照下来，终于在本地跑通了 Web UI。
+
+![](https://cdn-community.bcmcdn.com/47/community/PFFI0eSjgZufRcupUGlnGC9ePQRRibVmbaTD6pJX0y6J.png?hash=FtvZCJF0ZM2shZXcF0cwaAs-HgZb)
+
+## 第一次认真写 Prompt：和 AI “约法三章”
+
+我的提示词写得很随意：“女孩，夜景，霓虹灯，好看”。 但生成的效果不尽人意。
+
+后续尝试更专业的说法，找到了一次典型的英文 Prompt 长这样：
+
+`a cyberpunk girl standing on a rainy street, neon lights, reflective puddles, detailed face, 4k, illustration`
+
+配合上 **Negative Prompt**，比如：
+
+`lowres, blurry, extra limbs, bad hands, text, watermark`
+
+刚开始我有点不适应：  
+平时写代码要求“精确”，突然要写“像诗一样”的描述，总觉得哪里不对劲。  
+但几轮尝试之后，我慢慢发现，Prompt 其实更像是对“结果”的一种**抽象 API 设计**：
+
+- 正向提示词 = 你期望的功能和视觉要素
+- 反向提示词 = 你不希望出现的 Bug 和反模式
+- 权重（`(word:1.2)` 这种）= 优先级和权重分配
+
+当我开始用“写接口文档”的姿态写 Prompt 时，和模型的沟通也顺畅了很多：  
+每次改动一个小细节，看它的反馈，再一点点调整，就像和一个风格很强的设计师对话。
+
+![](https://cdn-community.bcmcdn.com/47/community/JMGSNwxwVhjOfHLL9jagJXzJolhxxQHABgAjETociDPi.png?hash=FsqC32BYKDV9rr2iFS7kDeFpHjHx)
+
+![](https://cdn-community.bcmcdn.com/47/community/oaeKqerzR6AEgvqk4QsVu8GCBETRswbe6loQrdqW5Kjo.png?hash=FtBTGhCn1_L_xzcYcYWD9GytmUaR)
+
+## 参数调教：从“玄学”到可控
+
+Prompt 之外，Stable Diffusion 还有一大堆参数：  
+`steps`、`sampler`、`CFG scale`、分辨率、种子……
+
+一开始我也是凭感觉乱调。  
+后来我做了一个小实验：固定 Prompt，每次只改一个参数，看看画面会发生什么变化。
+
+例如 **CFG scale**：
+
+- 太低：模型“自由发挥”，画风飘得很远，但有时会有意外的惊喜
+- 适中：既尊重 Prompt，又有一定的创作空间
+- 太高：模型死死贴着提示词，有时反而变得僵硬、细节混乱
+
+再比如 **采样器（Sampler）**：  
+有的收敛快，适合快速预览；  
+有的更适合慢慢打磨细节；  
+同样的 Prompt 换个 Sampler，人物气质甚至会完全不同。
+
+通过这种“单变量实验”，我逐渐把一开始看起来“玄学”的一堆选项，变成了可以凭经验预判的“工具箱”。  
+每次想要偏艺术一点、真实一点、赛博一点，我大概知道对应要怎么组合参数。
+
+## 从“AI 画图”到“和 AI 一起画图”
+
+最有意思的变化，是创作流程本身。
+
+最初，我是把 Stable Diffusion 当成一个**自动画图机**：  
+给它一串 Prompt，让它帮我完成“从 0 到 1”这一步。  
+后来我慢慢发现，一个更舒服的状态是：
+
+> 让它在 0.3～0.7 之间工作，然后由我接手完成剩下的部分。
+
+比如做一个项目封面时，我的流程大概是：
+
+1. 在 SD 里快速尝试不同构图和氛围，挑出 2～3 张大致满意的草图
+2. 把其中一张丢进 img2img 或 inpaint，进一步微调人物表情、光影
+3. 最后再用 Photoshop / Krita 做细节修补、加字体、调色
+
+Stable Diffusion 在这里，更像是一个永远不会累的**草图助理**：  
+它帮我把“有点模糊的画面想象”快速实体化，然后我再用人类的审美和判断力去做最后一公里。
+
+以前我画不出来的画，往往只能停留在脑子里；  
+现在，借助 Stable Diffusion，我可以在几分钟之内把它们生成出来。

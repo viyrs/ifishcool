@@ -235,7 +235,10 @@ const ProjectsStrip = ({ introReady = true, shellRef }: ProjectsStripProps) => {
                 index === 0 ||
                 project.timeline !== sortedProjects[index - 1].timeline;
               return (
-                <div key={project.timeline} className='projects-timeline-item'>
+                <div
+                  key={project.timeline + project.title}
+                  className='projects-timeline-item'
+                >
                   {showDot && <span className='projects-timeline-dot' />}
                   {showDot && (
                     <span className='projects-timeline-date'>

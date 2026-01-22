@@ -3,20 +3,43 @@ import { gsap } from 'gsap';
 import { OSS_REPOS, type OpenSourceRepoCard } from '@ifc/config/openSource';
 import { useOpenSourceShowcaseAnimation } from '@ifc/hooks/useOpenSourceShowcaseAnimation';
 import clickSmallSound from '@ifc/assets/sounds/clickSmall.mp3';
+
 const OSS_PAGE_SIZE = 3;
-const OSS_TOTAL_PAGES = Math.ceil(OSS_REPOS.length / OSS_PAGE_SIZE);
 
 const OpenSourceShowcase = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [visibleRepos, setVisibleRepos] = useState<OpenSourceRepoCard[]>(
     OSS_REPOS.slice(0, OSS_PAGE_SIZE)
   );
-  const [pageIndex, setPageIndex] = useState(0);
   const [isShuffling, setIsShuffling] = useState(false);
 
   const hoverAudioRef = useRef<HTMLAudioElement | null>(null);
 
   useOpenSourceShowcaseAnimation(sectionRef);
+
+  const getRandomRepos = (current: OpenSourceRepoCard[]) => {
+    const pool = [...OSS_REPOS];
+    const size = Math.min(OSS_PAGE_SIZE, pool.length);
+
+    for (let i = pool.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [pool[i], pool[j]] = [pool[j], pool[i]];
+    }
+
+    let next = pool.slice(0, size);
+
+    if (
+      current.length === next.length &&
+      current.every((repo, index) => repo.name === next[index]?.name)
+    ) {
+      next = pool.slice(size, size * 2).slice(0, size);
+      if (!next.length) {
+        next = pool.slice(0, size);
+      }
+    }
+
+    return next;
+  };
 
   return (
     <section className='oss-section' ref={sectionRef}>
@@ -42,11 +65,14 @@ const OpenSourceShowcase = () => {
 
               <div className='oss-vault-meta'>
                 <span className='oss-vault-tech'>{repo.tech}</span>
-                <span className='oss-vault-stars'>★ {repo.stars}</span>
               </div>
 
-              <button className='oss-vault-cta' type='button'>
-                View Repository
+              <button
+                className='oss-vault-cta'
+                type='button'
+                onClick={() => window.open(repo.url)}
+              >
+                查看仓库
               </button>
             </article>
           ))}
@@ -88,12 +114,10 @@ const OpenSourceShowcase = () => {
 
               const isMobile = window.matchMedia('(max-width: 768px)').matches;
 
-              const nextPage = (pageIndex + 1) % OSS_TOTAL_PAGES;
+              const nextRepos = getRandomRepos(visibleRepos);
 
               const applyPage = () => {
-                setPageIndex(nextPage);
-                const start = nextPage * OSS_PAGE_SIZE;
-                setVisibleRepos(OSS_REPOS.slice(start, start + OSS_PAGE_SIZE));
+                setVisibleRepos(nextRepos);
               };
 
               // On mobile: simple paging without animation
@@ -116,7 +140,7 @@ const OpenSourceShowcase = () => {
                 opacity: 0.55,
                 duration: 0.25,
                 ease: 'power2.in',
-                stagger: 0.04,
+                stagger: 0,
               })
                 .to(
                   shuffleBtn,
@@ -137,7 +161,7 @@ const OpenSourceShowcase = () => {
                   opacity: 1,
                   duration: 0.32,
                   ease: 'back.out(1.6)',
-                  stagger: 0.06,
+                  stagger: 0,
                 })
                 .to(
                   shuffleBtn,
@@ -151,7 +175,7 @@ const OpenSourceShowcase = () => {
                 );
             }}
           >
-            Shuffle
+            换一换
           </button>
         </div>
       </div>
