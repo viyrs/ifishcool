@@ -52,12 +52,12 @@ function App() {
             <div id='projects'>
               <ProjectsStrip introReady={introReady} shellRef={shellRef} />
             </div>
-            <div id='about'>
+            {/* <div id='about'>
               <TextScene />
             </div>
             <div id='notes'>
               <OpenSourceShowcase />
-            </div>
+            </div> */}
             <div id='contact'>
               <BigFooter />
             </div>
