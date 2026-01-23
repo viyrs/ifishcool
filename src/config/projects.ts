@@ -18,7 +18,7 @@ type MdxModule = {
   frontmatter: Frontmatter;
 };
 
-export const mdxFiles = import.meta.glob<MdxModule>('/public/docs/**/*.mdx', {
+export const mdxFiles = import.meta.glob<MdxModule>('@ifc/docs/**/*.mdx', {
   eager: true,
 });
 
