@@ -1,0 +1,77 @@
+---
+title: AI 3D资产生产
+meta: 3D 美术 · AI 工具链
+desc: 想看看 AI 在 3D 美术这块到底能做到什么，于是做了一个叫「丸丸学院」的小 Demo...
+timeline: 2025.02
+---
+
+突然一个兴趣，想看看当前 AI 对于 3D 美术这方面的效果怎么样了，所以我想搞一个小 demo，顺便看看制作的体验和效果。
+
+我们的程序就叫做《丸丸学院》，因为它可以用来学习，同时也不是很正经的游戏，本质上就是一个 demo 罢了。
+
+![](https://cdn-community.bcmcdn.com/47/community/nUP2mByKvYnuPH431Ozvu10T8EfZFm2yCJVn9fcz7gk6.jpg?hash=Fkoiy6sxtMN8aPquUKWFBSRGNEag)
+
+## 用 Hyper3D 生成模型
+
+主要还是想测试「用 AI 帮忙制作 3D 资产」这件事。通过搜索，我找到了 [Hyper3D](https://hyper3d.ai/)。
+
+它生成出来的 3D 资产质量非常高，包括：
+
+- 白膜质量
+- 贴图质量
+- 布线效果
+- 部件拆分
+
+这些都做得很到位。导出的时候还可以选择材质、精度、格式等。甚至是一个模型组合，它也能帮你拆开，不用再单独拿到 Blender 里面慢慢整理了。
+
+这简直是逆天：我只需要一句话或一张/几张图片，就可以直接生产。效果那是真的好，当时就把我吓到了——这是 3D 模型啊，挺厉害的，直接吊打建模萌新！
+
+![](https://cdn-community.bcmcdn.com/47/community/0iighRYXw8JheSMfcnpXXiS4MUKbyKbDKiRqDNdACXC5.png?hash=FhgRGIwhmLl5P53qPJiYBraBqZTi)
+
+## Mixamo：解决骨骼和基础动作
+
+光有模型还不够，还得让它「动起来」，也就是动画和绑骨骼。
+
+我们没有动补设备，如果手动 K 帧就完全脱离「用 AI 提效」这个主题了，这当然不行。我就在想：有没有一个既高效，又尽量自动化的方案？
+
+于是我找到了 **Mixamo**。它可以帮我把模型绑定骨骼，库里有上百个现成动画可以直接套用：
+
+- 上传模型
+- 自动绑定骨骼
+- 选喜欢的动作，让它帮你直接套到模型上
+
+骨骼也顺手一起绑定好了，等于说我几乎不用自己动手做骨骼和蒙皮。这么做效果肯定比不上完全手工的高精度制作，但对于我们的小游戏来说，已经完全够用了。（小声 bb：又不是 3A 游戏。）
+
+## Cascadeur：从视频到自定义动画
+
+最后，我还想要一些更「定制」的动作，问题是：
+
+- 不想自己一帧一帧 K
+- 又希望动作更贴合设想的画面
+
+这时候轮到 **Cascadeur** 登场了。里面有一个功能，可以通过一段视频，自动转成骨骼动画，并绑定到人物模型上。
+
+<video
+  src='https://cdn-community.bcmcdn.com/47/community/d5q1nXZAEiXYaRDO6TS1nxntXarYQaF9ONc5IhaHssRc.mp4?hash=ljG8jXb7uAINYcB9RF__3vU-xh8e'
+  controls
+  playsInline
+  style={{ maxWidth: '400px', borderRadius: '12px' }}
+/>
+
+这么厉害，我们不用任何专业设备，只需要一部手机就可以拍视频、就有动补装备的那套效果，简直是厉害了～
+
+## 串到 cocos 里跑起来
+
+有了模型，有了骨骼动画，接下来就是最后一环：
+
+- 把资源导入到 cocos
+- 做场景布局
+- 写游戏逻辑代码
+
+最后的效果顺利实现了：
+
+![](https://cdn-community.bcmcdn.com/47/community/PZ7AJKKW3zyVhcRLIwUMQ0e5Sb9KYnbHb0Nl1Dh21Gge.gif?hash=FtVvDr5yrpeYk95437FbL88OCGCP)
+
+![](https://cdn-community.bcmcdn.com/47/community/R36DJY0grethiNgg3Fth8L9ePCauO8vxcSl8eJHAw1DU.jpg?hash=FuazgYzjKRu8Ji8qV1JdgGMLmWM1)
+
+整体感觉还是挺有意思的。对我来说，这更像是一条「AI 3D 资产制作流水线」的小实验：从一句话/一张图开始，到最后在引擎里跑起来，中间大部分重体力活都交给了工具。

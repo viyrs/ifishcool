@@ -1,0 +1,75 @@
+---
+title: AI投资人APP制作尝试
+meta: 移动端 · UI 设计 · AI 工具链
+desc: 试了一次「AI 设计 + AI 写代码」的组合，从 Stitch 生成设计稿，到 Claude 还原界面，再到一个 Vue3 的 AI 投资人模拟面试 App 落地。
+timeline: 2025.05
+---
+
+我们测试了一波用 AI 来制作移动端网页的效果，顺便打包成 App，因为它主要是给移动端用户用的。场景大概是：
+
+- 卡路里计算器
+- 拍摄食物
+- 让 AI 分析卡路里等数据
+
+![](https://cdn-community.bcmcdn.com/47/community/sF2tCXbMcnGxyLYtWeg5hOnvo6p7AJdDch3uo9tDw8jm.png?hash=Fgw5WJmjgM-RXARQ0GRPIsUdDqyM)
+
+## 用 Stitch 生成设计稿
+
+我们借用了一个用 AI 生产网页设计稿的工具，是谷歌最近几天刚出的 [Stitch](https://stitch.withgoogle.com/)。
+
+它支持：
+
+- 一句话生成界面
+- 通过图片生成设计
+
+效果非常好，一下子就能给你生出好几个界面，还包含了 React、Vue 等代码示例，不仅仅是原型图。
+
+![](https://cdn-community.bcmcdn.com/47/community/GIoG59cUMGzxTVNLwqV2CH8cZMRGU60gpMzgm1B0VTvU.jpg?hash=FkJtcTA4fbS0O0bakkaoLmK7vk8y)
+
+## 用 Claude 还原成可操作界面
+
+我们把这个设计稿丢给 Claude 3.7，再结合自己的 prompt，成功生成出了一样的、可以直接操作的界面。
+
+这效率简直是杠杠的，比传统「设计 → 前端手写还原」快了好几十倍。
+
+## AI 角色对话和投资人模拟
+
+后续，AI 辅助对话也是一个热词，例如：
+
+- AI 医生
+- AI 律师
+- AI 面试官
+
+这些都是开箱即用的 AI 角色扮演。虽然本质上只是提示词和语料的预设，但确实比「完全从零开始和大模型聊天」更方便，用户更愿意接受这种开箱即用的 AI 体验。
+
+所以我们顺势做了一个 **AI 投资人模拟面试** 的 App，它主要用在移动端，不过电脑端也可以使用。
+
+![](https://cdn-community.bcmcdn.com/47/community/eM1sNjR49bv29vod6wHKxQ41jyV8evDf9ndQ1SWIj5SF.png?hash=FjqGekL8Cm0Yubj-V7DVnBEtNyrq)
+
+它大概分为几个核心界面：
+
+- 主页
+- 个人中心
+- 投资人选择
+- 模拟对话
+- 数据复盘
+
+对准备拿投资的人来说，这是一个非常好的模拟锻炼场，可以多次演练、反复复盘。
+
+![](https://cdn-community.bcmcdn.com/47/community/Z0An0N1upsWI1YUa7vb64OnAgPn4ROind62QO5lnztxV.png?hash=FtXjtr4ptO0vX5_jqfYQiIWaksCz)
+
+![](https://cdn-community.bcmcdn.com/47/community/u4ncipXnW4QtMrC39jgIQtnovYjug1YCYAf2FVcGCHMK.png?hash=FpvCOhq3qwQ3K8bM3lwxp7qymKlT)
+
+![](https://cdn-community.bcmcdn.com/47/community/bNHq9MGzrEeoTPST14Fh00wuB8AheHbEhjFeRPyZRKll.png?hash=FgnHHiOFagVC9EGOOZXtFB7RnPuI)
+
+## 我只当好产品经理
+
+整个程序是 Vue3 结构，从界面设计到大部分代码，基本都是 AI 完成的。
+
+我更多是在：
+
+- 想清楚产品要解决什么问题
+- 把需求用 prompt 讲清楚
+- 不断迭代和微调生成结果
+
+某种程度上，我只需要把「产品经理」这个角色扮演好，然后指挥 AI 完成剩下的工作。

@@ -1,0 +1,71 @@
+---
+title: MCP 把 AI 变成“数据分析助手”
+meta: MCP · 神奇代码岛
+desc: 试着用 MCP 把神奇代码岛的 ArenaPro 和地图数据分析能力暴露给 AI，让它按需调用接口、帮忙看数据、写代码，自己更像一个指挥者而不是搬砖工。
+timeline: 2025.04
+---
+
+最近，MCP（Model Context Protocol）这个词特别火，它可以让 AI 与万物互联。
+
+只要把功能封装成 AI 能理解的接口，AI 就可以根据自己的需求来调用这些工具。比如一个「AI 天气」场景：
+
+- 我问它某地今天的天气怎样、需要注意什么；
+- 它会先调用MCP中的天气接口获取数据；
+- 再结合上下文进行分析；
+- 最后用自然语言总结给我。
+
+我不需要自己去百度，还能得到更贴合上下文的回答，这体验确实很帅。也因此，这个月很多厂商都在陆续给自家平台接入 MCP 功能，生怕自己落伍。
+
+<iframe
+  src='//player.bilibili.com/player.html?isOutside=true&aid=114335921736357&bvid=BV149oLY3EXS&cid=29410853436&p=1'
+  scrolling='no'
+  border='0'
+  frameborder='no'
+  framespacing='0'
+  allowfullscreen='true'
+></iframe>
+
+## 尝试：把神岛的工具暴露给 AI
+
+我不只是试用了一下 MCP，还试着自己去封装一个 MCP 工具。
+
+比如：
+
+- 神奇代码岛的 **ArenaPro**；
+- 神岛的地图数据分析能力。
+
+把这些都暴露给 AI，让它按需调用，帮我分析数据、做总结，我就不用一个个报表、一个个图表地去看了。
+
+首先，我从自己开发开始。
+
+![](https://cdn-community.bcmcdn.com/47/community/hAOMnUd0Tit1Yf4Urw8SnXFUh6rBukhFIFtAagj2xHaa.png?hash=Ft1bzWM8FH7-BNfL8tn7PMItVxDc)
+
+开发完之后，我找了一个在线托管平台，连接很方便。
+
+![](https://cdn-community.bcmcdn.com/47/community/UuxpvuON3C3RfVIsml0rlVovf9sy3wamZyQ6JWmqXeLu.png?hash=FmIMyyZLTjo1FwRPoqi9Xx0PbtWb)
+
+最后，在支持 MCP 的 AI 平台里，只要配置好这个工具，就可以直接调用了。
+
+比如，我让它帮我分析《恒光学院》这个地图的游玩数据：
+
+- 我只需要跟它说我要分析哪张地图；
+- AI 会通过我暴露的接口去获取对应的地图数据；
+- 再根据我给出的关注点，自动分析并整理成总结报告。
+
+![](https://cdn-community.bcmcdn.com/47/community/OzOwOIP9dxwbOD5PVgEYb8HqHLixj6Qnlx6M9EMdjuzH.png?hash=Fsv2lSg11CazvGfFxZNHzPYpWobO)
+
+这样一来，我可以彻底从一堆原始数据里解放出来，把精力更多放在「怎么看结果、怎么做决策」上。
+
+## ArenaPro + MCP：让插件变成“AI 的手”
+
+后面，我也把 ArenaPro 插件接入了 MCP。
+
+有了这层接入之后：
+
+- AI 不仅可以帮我写神岛里的代码；
+- 还可以调用 ArenaPro 插件提供的功能；
+- 自己决定是否需要编译、运行等操作。
+
+某种意义上，ArenaPro 变成了 AI 的一只「手」，而我则退到了更后面，更多是在讲清楚目标，让 AI 和工具自己协作完成细节。
+
+![](https://cdn-community.bcmcdn.com/47/community/dpU8FN0AyYWoJS3RRSpKBUVgN38ZKkbZQmAWGewc3ghr.jpg?hash=FkDLWEjmS5kBYqIPMTAjMcfp0VOh)

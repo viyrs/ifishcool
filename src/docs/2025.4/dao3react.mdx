@@ -1,0 +1,134 @@
+---
+title: 在神岛里用 React 写 UI
+meta: 神奇代码岛 · React
+desc: 把神奇代码岛原本的声明式 UI API 接到 React 上，让写 UI 更直观、也更适合 AI 帮忙编码。
+timeline: 2025.04
+---
+
+神岛的 UI API 是声明式的，虽然本身很简单、门槛也不高，不过对于中大型项目，写起来还是不太方便，也不够直观。
+
+我们可以先看一个小例子，感受一下差别。
+
+![](https://cdn-community.bcmcdn.com/47/community/RUDhwT05NtP535cCjaUhrlvognUZK7oi9vooLCzafSiA.gif?hash=FqwmiBo1iVa9R67Dwi_qZo6y5Xaa)
+
+同样的效果，如果用原生声明式 API 来写：
+
+```js
+let count = -5;
+const box = UiBox.create();
+const headerText = UiText.create();
+const history = [];
+const items = [];
+const updateHeaderText = () => {
+  headerText.textContent =
+    count > 0
+      ? `很好，你一共点击了${count + 5}次`
+      : `点击我，直到1次！还剩${-count}次！`;
+};
+const renderList = () => {
+  for (let i = 0; i < history.length; i++) {
+    let item = items[i];
+    if (!item) {
+      item = UiText.create();
+      item.parent = box;
+      items[i] = item;
+    }
+    item.visible = true;
+    item.textContent = history[i];
+    item.position.offset.copy(Vec2.create({ x: 0, y: (i + 1) * 20 }));
+    item.size.scale.copy(Vec2.create({ x: 1, y: 1 }));
+    item.size.offset.copy(Vec2.create({ x: 0, y: 0 }));
+  }
+  for (let i = history.length; i < items.length; i++) {
+    items[i].visible = false;
+  }
+};
+box.parent = ui;
+box.backgroundColor.copy(Vec3.create({ r: 62, g: 185, b: 185 }));
+box.position.offset.copy(Vec2.create({ x: 10, y: 20 }));
+box.events.on('pointerdown', () => {
+  count++;
+  updateHeaderText();
+  history.unshift(`第${count + 5}次点击时间： ${Date.now()}`);
+  renderList();
+});
+headerText.parent = box;
+headerText.size.scale.copy(Vec2.create({ x: 1, y: 1 }));
+headerText.size.offset.copy(Vec2.create({ x: 0, y: 0 }));
+headerText.position.offset.copy(Vec2.create({ x: 0, y: 0 }));
+updateHeaderText();
+renderList();
+```
+
+如果使用 React 的方式来写呢？
+
+```tsx
+function App() {
+  const [count, setCount] = useState(-5);
+  const [history, setHistory] = useState<string[]>([]);
+  return (
+    <Box
+      style={{
+        backgroundColor: Vec3.create({ r: 62, g: 185, b: 185 }),
+        position: { offset: Vec2.create({ x: 10, y: 20 }) },
+      }}
+      onClick={() => {
+        setCount((c) => {
+          const next = c + 1;
+          setHistory((h) => [`第${next + 5}次点击时间： ${Date.now()}`, ...h]);
+          return next;
+        });
+      }}
+    >
+      {count > 0
+        ? `很好，你一共点击了${count + 5}次`
+        : `点击我，直到1次！还剩${-count}次！`}
+      {history.map((item, index) => (
+        <Text y={(index + 1) * 20}>{item}</Text>
+      ))}
+    </Box>
+  );
+}
+createRoot(ui).render(<App />);
+```
+
+结果更清晰了，代码也更少，基本就是语法躺平，我个人会更喜欢下面这种写法。
+
+接下来真正的问题就来了：
+
+> 在不是浏览器的神岛环境里，怎么让 UI 也能用 React 来写？
+
+## 关键：用 react-reconciler 搭一座桥
+
+一开始我也觉得这事儿有点不现实。
+
+后来通过 AI 搜索，我找到了这个 **react-reconciler** npm 包。它本质上就是 React 的“调和引擎”，负责把组件的更新逻辑应用到实际界面上——只不过默认对象是浏览器 DOM。
+
+我灵机一动：
+
+> 只要把它的底层渲染操作，从 DOM 换成神岛的 UI API，这不就成了吗？
+
+真不愧是世界上生态最繁荣的前端框架，社区里什么宝藏都有。这一下，希望的大门就被打开了。
+
+## 对学生和 AI 编码来说有什么意义？
+
+我也在想，这样做除了自己写得舒服，还有什么价值：
+
+- 对学生来说，可以顺手接触到 React 这种业界主流的 UI 写法；
+- 对 AI 来说，React 也是它在社区代码里最熟悉、最常见的模式之一。
+
+尤其是现在 AI 编码已经非常普及，大模型在社区学到大量 React 代码，对这种写法再熟悉不过了，让它帮忙写 UI 反而比原始 API 更容易。
+
+## 实现效果：让 React 在神岛跑起来
+
+我通过修改 react-reconciler 的配置，把它接到了神岛的 UI API 上，整体过程比想象中顺利。
+
+![](https://cdn-community.bcmcdn.com/47/community/XDTrDh5Y6TDqEN2jv2mniQGZmt5HWoUcdsYLl7SLERf3.png?hash=FijA0ikzk1Ivb2FWYzSIgEu8fWPy)
+
+最后，在神岛中由 AI 写出来的一段 React UI 效果，确实把我们都惊了一下——对比以前手写那一大串声明式代码，差距非常直观。
+
+![](https://cdn-community.bcmcdn.com/47/community/z8LHZtCGVnCFHhzSOWGwTAwfmXo8eeTCyTis2I4qefUp.gif?hash=FgdS4oijPF7-We03Hkg0nsUxXB8M)
+
+我也顺手把这套方案整理成了一篇教程文档，感兴趣可以看这里：
+
+https://docs.box3lab.com/arenapro/zh/react

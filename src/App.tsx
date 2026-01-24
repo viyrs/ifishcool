@@ -5,7 +5,7 @@ import IntroGate from '@ifc/components/layout/IntroGate';
 import TopNav from '@ifc/components/layout/TopNav';
 import ProjectsStrip from '@ifc/sections/ProjectsStrip';
 // import TextScene from '@ifc/sections/TextScene';
-// import OpenSourceShowcase from '@ifc/sections/OpenSourceShowcase';
+import OpenSourceShowcase from '@ifc/sections/OpenSourceShowcase';
 import BigFooter from '@ifc/sections/BigFooter';
 import { useIntroGate } from '@ifc/hooks/useIntroGate';
 import { useTopNavMenu } from '@ifc/hooks/useTopNavMenu';
@@ -54,10 +54,10 @@ function App() {
             </div>
             {/* <div id='about'>
               <TextScene />
-            </div>
+            </div> */}
             <div id='notes'>
               <OpenSourceShowcase />
-            </div> */}
+            </div>
             <div id='contact'>
               <BigFooter />
             </div>
