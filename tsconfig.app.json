@@ -17,7 +17,7 @@
     "jsx": "react-jsx",
     "paths": {
       "@ifc/*": ["./src/*"],
-      "@docs/*": ["/public/docs/*"]
+      "@docs/*": ["/docs/*"]
     },
     /* Linting */
     "strict": true,
